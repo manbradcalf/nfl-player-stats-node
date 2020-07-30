@@ -1,0 +1,26 @@
+{
+  "name": "ff-stats-visualizer",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Visualize fantasy football stats",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/manbradcalf/ff2020"
+  },
+  "keywords": [
+    "fantasy",
+    "football"
+  ],
+  "author": "Ben Medcalf",
+  "license": "ISC",
+  "dependencies": {
+    "espn-fantasy-football-api": "^0.15.0",
+    "express": "^4.17.1",
+    "node-ts": "^5.0.7",
+    "typescript": "^3.9.7"
+  }
+}
