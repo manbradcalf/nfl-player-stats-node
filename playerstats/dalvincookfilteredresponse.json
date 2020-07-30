@@ -1,0 +1,79 @@
+[
+    {
+        "year": 2017,
+        "rushingStats2017": {
+            "gamesPlayed": "4",
+            "rushingAttempts": "74",
+            "rushingYards": "354",
+            "yardsPerRushAttempt": "4.8",
+            "rushingTouchdowns": "2",
+            "longRushing": "33",
+            "rushingFirstDowns": "15",
+            "rushingFumbles": "1",
+            "rushingFumblesLost": "1"
+        },
+        "receivingStats2017": {
+            "gamesPlayed": "4",
+            "receptions": "74",
+            "receivingTargets": "354",
+            "receivingYards": "4.8",
+            "yardsPerReception": "2",
+            "receivingTouchdowns": "33",
+            "longReception": "15",
+            "receivingFirstDowns": "1",
+            "receivingFumbles": "1"
+        }
+    },
+    {
+        "year": 2018,
+        "rushingStats2018": {
+            "gamesPlayed": "11",
+            "rushingAttempts": "133",
+            "rushingYards": "615",
+            "yardsPerRushAttempt": "4.6",
+            "rushingTouchdowns": "2",
+            "longRushing": "70",
+            "rushingFirstDowns": "22",
+            "rushingFumbles": "2",
+            "rushingFumblesLost": "2"
+        },
+        "receivingStats2018": {
+            "gamesPlayed": "11",
+            "receptions": "40",
+            "receivingTargets": "49",
+            "receivingYards": "305",
+            "yardsPerReception": "7.6",
+            "receivingTouchdowns": "2",
+            "longReception": "27",
+            "receivingFirstDowns": "15",
+            "receivingFumbles": "0",
+            "receivingFumblesLost": "0"
+        }
+    },
+    {
+        "year": 2019,
+        "rushingStats2019": {
+            "gamesPlayed": "14",
+            "rushingAttempts": "250",
+            "rushingYards": "1,135",
+            "yardsPerRushAttempt": "4.5",
+            "rushingTouchdowns": "13",
+            "longRushing": "75",
+            "rushingFirstDowns": "60",
+            "rushingFumbles": "3",
+            "rushingFumblesLost": "2"
+        },
+        "receivingStats2019": {
+            "gamesPlayed": "14",
+            "receptions": "53",
+            "receivingTargets": "63",
+            "receivingYards": "519",
+            "yardsPerReception": "9.8",
+            "receivingTouchdowns": "0",
+            "longReception": "31",
+            "receivingFirstDowns": "26",
+            "receivingFumbles": "1",
+            "receivingFumblesLost": "0"
+        }
+    }
+]

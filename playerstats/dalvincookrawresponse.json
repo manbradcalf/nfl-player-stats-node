@@ -1,0 +1,988 @@
+{
+    "filters": [
+        {
+            "displayName": "League",
+            "name": "league",
+            "value": "nfl",
+            "options": [
+                {
+                    "value": "college-football",
+                    "displayValue": "NCAAF"
+                },
+                {
+                    "value": "nfl",
+                    "displayValue": "NFL"
+                }
+            ]
+        },
+        {
+            "displayName": "Season",
+            "name": "seasontype",
+            "value": "2",
+            "options": [
+                {
+                    "value": "2",
+                    "displayValue": "Regular Season"
+                },
+                {
+                    "value": "3",
+                    "displayValue": "Postseason"
+                }
+            ]
+        }
+    ],
+    "teams": {
+        "minnesota-vikings": {
+            "id": "16",
+            "uid": "s:20~l:28~t:16",
+            "guid": "3db556c9ed76a7a54ccba92fc6db4334",
+            "slug": "minnesota-vikings",
+            "location": "Minnesota",
+            "name": "Vikings",
+            "nickname": "Minnesota",
+            "abbreviation": "MIN",
+            "displayName": "Minnesota Vikings",
+            "shortDisplayName": "Vikings",
+            "color": "240A67",
+            "alternateColor": "ffc62f",
+            "isActive": true,
+            "isAllStar": false,
+            "logos": [
+                {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/min.png",
+                    "width": 500,
+                    "height": 500,
+                    "rel": [
+                        "full",
+                        "default"
+                    ]
+                },
+                {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/min.png",
+                    "width": 500,
+                    "height": 500,
+                    "rel": [
+                        "full",
+                        "dark"
+                    ]
+                },
+                {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+                    "width": 500,
+                    "height": 500,
+                    "rel": [
+                        "full",
+                        "scoreboard"
+                    ]
+                },
+                {
+                    "href": "https://a.espncdn.com/i/teamlogos/nfl/500-dark/scoreboard/min.png",
+                    "width": 500,
+                    "height": 500,
+                    "rel": [
+                        "full",
+                        "scoreboard",
+                        "dark"
+                    ]
+                }
+            ],
+            "links": [
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "clubhouse",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/team/_/name/min/minnesota-vikings",
+                    "text": "Clubhouse",
+                    "shortText": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "roster",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/team/roster/_/name/min/minnesota-vikings",
+                    "text": "Roster",
+                    "shortText": "Roster",
+                    "isExternal": false,
+                    "isPremium": false
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "stats",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/team/stats/_/name/min/minnesota-vikings",
+                    "text": "Statistics",
+                    "shortText": "Statistics",
+                    "isExternal": false,
+                    "isPremium": false
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "schedule",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/team/schedule/_/name/min",
+                    "text": "Schedule",
+                    "shortText": "Schedule",
+                    "isExternal": false,
+                    "isPremium": false
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "photos",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/team/photos/_/name/min",
+                    "text": "photos",
+                    "shortText": "photos",
+                    "isExternal": false,
+                    "isPremium": false
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "scores",
+                        "sportscenter",
+                        "app",
+                        "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:20~l:28~t:16&section=scores",
+                    "text": "Scores",
+                    "shortText": "Scores",
+                    "isExternal": false,
+                    "isPremium": false
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "draftpicks",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/draft/teams/_/name/min/minnesota-vikings",
+                    "text": "Draft Picks",
+                    "shortText": "Draft Picks",
+                    "isExternal": false,
+                    "isPremium": true
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "transactions",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/team/transactions/_/name/min",
+                    "text": "Transactions",
+                    "shortText": "Transactions",
+                    "isExternal": false,
+                    "isPremium": false
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "injuries",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/team/injuries/_/name/min",
+                    "text": "Injuries",
+                    "shortText": "Injuries",
+                    "isExternal": false,
+                    "isPremium": false
+                },
+                {
+                    "language": "en-US",
+                    "rel": [
+                        "depthchart",
+                        "desktop",
+                        "team"
+                    ],
+                    "href": "http://www.espn.com/nfl/team/depth/_/name/min",
+                    "text": "Depth Chart",
+                    "shortText": "Depth Chart",
+                    "isExternal": false,
+                    "isPremium": false
+                }
+            ],
+            "groups": {},
+            "coaches": {},
+            "venue": {
+                "id": "3953",
+                "fullName": "TCF Bank Stadium",
+                "address": {
+                    "city": "Minneapolis",
+                    "state": "MN",
+                    "zipCode": "55455"
+                },
+                "capacity": 50000,
+                "grass": true,
+                "indoor": false,
+                "images": [
+                    {
+                        "href": "https://a.espncdn.com/i/venues/nfl/day/3953.jpg",
+                        "width": 2000,
+                        "height": 1125,
+                        "rel": [
+                            "full",
+                            "day"
+                        ]
+                    }
+                ]
+            },
+            "record": {},
+            "againstTheSpreadRecords": {},
+            "ranks": {}
+        }
+    },
+    "categories": [
+        {
+            "name": "rushing",
+            "displayName": "Rushing",
+            "labels": [
+                "GP",
+                "ATT",
+                "YDS",
+                "AVG",
+                "TD",
+                "LNG",
+                "FD",
+                "FUM",
+                "LST"
+            ],
+            "names": [
+                "gamesPlayed",
+                "rushingAttempts",
+                "rushingYards",
+                "yardsPerRushAttempt",
+                "rushingTouchdowns",
+                "longRushing",
+                "rushingFirstDowns",
+                "rushingFumbles",
+                "rushingFumblesLost"
+            ],
+            "displayNames": [
+                "Games Played",
+                "Rushing Attempts",
+                "Rushing Yards",
+                "Yards Per Rush Attempt",
+                "Rushing Touchdowns",
+                "Long Rushing",
+                "Rushing 1st downs",
+                "Rushing Fumbles",
+                "Rushing Fumbles Lost"
+            ],
+            "descriptions": [
+                "Games Played",
+                "The total number of attempted rushes.",
+                "The total rushing yards.",
+                "The average number of yards per rush attempt.",
+                "The total number of rushing touchdowns.",
+                "The amount of yards for the longest run.",
+                "The number of times a first down is picked up by a run.",
+                "The number of times there is a run and then the ball is fumbled.",
+                "The number of times there is a run and then the ball is fumbled."
+            ],
+            "statistics": [
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2017,
+                        "displayName": "2017"
+                    },
+                    "stats": [
+                        "4",
+                        "74",
+                        "354",
+                        "4.8",
+                        "2",
+                        "33",
+                        "15",
+                        "1",
+                        "1"
+                    ],
+                    "position": "RB"
+                },
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2018,
+                        "displayName": "2018"
+                    },
+                    "stats": [
+                        "11",
+                        "133",
+                        "615",
+                        "4.6",
+                        "2",
+                        "70",
+                        "22",
+                        "2",
+                        "2"
+                    ],
+                    "position": "RB"
+                },
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2019,
+                        "displayName": "2019"
+                    },
+                    "stats": [
+                        "14",
+                        "250",
+                        "1,135",
+                        "4.5",
+                        "13",
+                        "75",
+                        "60",
+                        "3",
+                        "2"
+                    ],
+                    "position": "RB"
+                }
+            ],
+            "totals": [
+                "29",
+                "457",
+                "2,104",
+                "4.6",
+                "17",
+                "75",
+                "97",
+                "6",
+                "5"
+            ],
+            "sortKey": "rushing"
+        },
+        {
+            "name": "receiving",
+            "displayName": "Receiving",
+            "labels": [
+                "GP",
+                "REC",
+                "TGTS",
+                "YDS",
+                "AVG",
+                "TD",
+                "LNG",
+                "FD",
+                "FUM",
+                "LST"
+            ],
+            "names": [
+                "gamesPlayed",
+                "receptions",
+                "receivingTargets",
+                "receivingYards",
+                "yardsPerReception",
+                "receivingTouchdowns",
+                "longReception",
+                "receivingFirstDowns",
+                "receivingFumbles",
+                "receivingFumblesLost"
+            ],
+            "displayNames": [
+                "Games Played",
+                "Receptions",
+                "Receiving Targets",
+                "Receiving Yards",
+                "Yards Per Reception",
+                "Receiving Touchdowns",
+                "Long Reception",
+                "Receiving First Downs",
+                "Receiving Fumbles",
+                "Receiving Fumbles Lost"
+            ],
+            "descriptions": [
+                "Games Played",
+                "The total number of receptions.",
+                "The number of times a receiver is thrown to.",
+                "The total receiving yards.",
+                "The average number of yards per reception.",
+                "The total number of receiving touchdowns.",
+                "The amount of yards for the longest reception.",
+                "The number of times a first down is picked up by a reception.",
+                "The number of times a reception is made and then the ball is fumbled.",
+                "The number of times a reception is made and the balled is fumbled and recovered by the opposing team."
+            ],
+            "statistics": [
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2017,
+                        "displayName": "2017"
+                    },
+                    "stats": [
+                        "4",
+                        "11",
+                        "16",
+                        "90",
+                        "8.2",
+                        "0",
+                        "36",
+                        "3",
+                        "0",
+                        "0"
+                    ],
+                    "position": "RB"
+                },
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2018,
+                        "displayName": "2018"
+                    },
+                    "stats": [
+                        "11",
+                        "40",
+                        "49",
+                        "305",
+                        "7.6",
+                        "2",
+                        "27",
+                        "15",
+                        "0",
+                        "0"
+                    ],
+                    "position": "RB"
+                },
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2019,
+                        "displayName": "2019"
+                    },
+                    "stats": [
+                        "14",
+                        "53",
+                        "63",
+                        "519",
+                        "9.8",
+                        "0",
+                        "31",
+                        "26",
+                        "1",
+                        "0"
+                    ],
+                    "position": "RB"
+                }
+            ],
+            "totals": [
+                "29",
+                "104",
+                "128",
+                "914",
+                "8.8",
+                "2",
+                "36",
+                "44",
+                "1",
+                "0"
+            ],
+            "sortKey": "receiving"
+        },
+        {
+            "name": "defensive",
+            "displayName": "Defensive",
+            "labels": [
+                "GP",
+                "TOT",
+                "SOLO",
+                "AST",
+                "SACK",
+                "FF",
+                "FR",
+                "YDS",
+                "INT",
+                "YDS",
+                "AVG",
+                "TD",
+                "LNG",
+                "PD",
+                "STF",
+                "STFYDS",
+                "KB"
+            ],
+            "names": [
+                "gamesPlayed",
+                "totalTackles",
+                "soloTackles",
+                "assistTackles",
+                "sacks",
+                "fumblesForced",
+                "fumblesRecovered",
+                "fumblesRecoveredYards",
+                "interceptions",
+                "interceptionYards",
+                "avgInterceptionYards",
+                "interceptionTouchdowns",
+                "longInterception",
+                "passesDefended",
+                "stuffs",
+                "stuffYards",
+                "kicksBlocked"
+            ],
+            "displayNames": [
+                "Games Played",
+                "Total Tackles",
+                "Solo Tackles",
+                "Assist Tackles",
+                "Sacks",
+                "Forced Fumbles",
+                "Fumbles Recovered",
+                "Fumbles Recovered Yards",
+                "Interceptions",
+                "Interception Yards",
+                "Average Interception Yards",
+                "Interception Touchdowns",
+                "Long Interception",
+                "Passes Defended",
+                "Stuffs",
+                "Stuff Yards",
+                "Kicks Blocked"
+            ],
+            "descriptions": [
+                "Games Played",
+                "The total number of tackles.",
+                "The number of times a tackle was made unassisted.",
+                "The number of assists on tackles.",
+                "The total number of sacks.",
+                "The total number of forced fumbles.",
+                "The number of fumbles recovered.",
+                "The number of yards gained after a fumble is recovered.",
+                "The total number of interceptions.",
+                "The number of yards gained after an interception.",
+                "The average number of return yards per interception.",
+                "The number of times an interception is returned for a touchdown.",
+                "The amount of yards of the longest interception return.",
+                "The total number of passes defended.",
+                "The number of times that a runner is stuffed at or behind the line of scrimmage.",
+                "The number of yards lost from stuffs.",
+                "The number of times a kick was blocked."
+            ],
+            "statistics": [
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2017,
+                        "displayName": "2017"
+                    },
+                    "stats": [
+                        "4",
+                        "1",
+                        "1",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0.0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "position": "RB"
+                },
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2018,
+                        "displayName": "2018"
+                    },
+                    "stats": [
+                        "11",
+                        "1",
+                        "1",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0.0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "position": "RB"
+                }
+            ],
+            "totals": [
+                "29",
+                "2",
+                "2",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0.0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+            ],
+            "sortKey": "defensive"
+        },
+        {
+            "name": "scoring",
+            "displayName": "Scoring",
+            "labels": [
+                "GP",
+                "PASS",
+                "RUSH",
+                "REC",
+                "RET",
+                "TD",
+                "2PT",
+                "PAT",
+                "FG",
+                "PTS"
+            ],
+            "names": [
+                "gamesPlayed",
+                "passingTouchdowns",
+                "rushingTouchdowns",
+                "receivingTouchdowns",
+                "returnTouchdowns",
+                "totalTouchdowns",
+                "totalTwoPointConvs",
+                "kickExtraPoints",
+                "fieldGoals",
+                "totalPoints"
+            ],
+            "displayNames": [
+                "Games Played",
+                "Passing Touchdowns",
+                "Rushing Touchdowns",
+                "Receiving Touchdowns",
+                "Return Touchdowns",
+                "Total Touchdowns",
+                "Total Two Point Conversions",
+                "Kick Extra Points",
+                "Field Goals",
+                "Total Points"
+            ],
+            "descriptions": [
+                "Games Played",
+                "The total number of passing touchdowns.",
+                "The total number of rushing touchdowns.",
+                "The total number of receiving touchdowns.",
+                "The total number of return touchdowns.",
+                "The number of touchdowns scored in total.",
+                "The number of times a 2-point conversion is successful.",
+                "The number of extra points made.",
+                "The number of field goals made.",
+                "The number of total points scored."
+            ],
+            "statistics": [
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2017,
+                        "displayName": "2017"
+                    },
+                    "stats": [
+                        "4",
+                        "0",
+                        "2",
+                        "0",
+                        "0",
+                        "2",
+                        "0",
+                        "0",
+                        "0",
+                        "12"
+                    ],
+                    "position": "RB"
+                },
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2018,
+                        "displayName": "2018"
+                    },
+                    "stats": [
+                        "11",
+                        "0",
+                        "2",
+                        "2",
+                        "0",
+                        "4",
+                        "0",
+                        "0",
+                        "0",
+                        "24"
+                    ],
+                    "position": "RB"
+                },
+                {
+                    "teamId": "16",
+                    "teamSlug": "minnesota-vikings",
+                    "season": {
+                        "year": 2019,
+                        "displayName": "2019"
+                    },
+                    "stats": [
+                        "14",
+                        "0",
+                        "13",
+                        "0",
+                        "0",
+                        "13",
+                        "0",
+                        "0",
+                        "0",
+                        "78"
+                    ],
+                    "position": "RB"
+                }
+            ],
+            "totals": [
+                "29",
+                "0",
+                "17",
+                "2",
+                "0",
+                "19",
+                "0",
+                "0",
+                "0",
+                "114"
+            ],
+            "sortKey": "scoring"
+        }
+    ],
+    "glossary": [
+        {
+            "abbreviation": "1-19\t",
+            "displayName": "FGM 1-19 yards"
+        },
+        {
+            "abbreviation": "20-29\t",
+            "displayName": "FGM 20-29 yards"
+        },
+        {
+            "abbreviation": "2PT",
+            "displayName": "Total Two Point Conversions"
+        },
+        {
+            "abbreviation": "30-39",
+            "displayName": "FGM 30-39 yards"
+        },
+        {
+            "abbreviation": "40-49\t",
+            "displayName": "FGM 40-49 yards"
+        },
+        {
+            "abbreviation": "50+",
+            "displayName": "FGM 50+ yards"
+        },
+        {
+            "abbreviation": "AST",
+            "displayName": "Assist Tackles"
+        },
+        {
+            "abbreviation": "ATT",
+            "displayName": "Rushing Attempts"
+        },
+        {
+            "abbreviation": "AVG",
+            "displayName": "Yards Per Rush Attempt"
+        },
+        {
+            "abbreviation": "CMP",
+            "displayName": "Completions"
+        },
+        {
+            "abbreviation": "CMP%",
+            "displayName": "Completion Percentage"
+        },
+        {
+            "abbreviation": "FC",
+            "displayName": "Punt Return Fair Catches"
+        },
+        {
+            "abbreviation": "FD",
+            "displayName": "Rushing 1st downs"
+        },
+        {
+            "abbreviation": "FF",
+            "displayName": "Forced Fumbles"
+        },
+        {
+            "abbreviation": "FG",
+            "displayName": "Field Goals"
+        },
+        {
+            "abbreviation": "FG%",
+            "displayName": "Field Goal Percentage"
+        },
+        {
+            "abbreviation": "FR",
+            "displayName": "Fumbles Recovered"
+        },
+        {
+            "abbreviation": "FUM",
+            "displayName": "Rushing Fumbles"
+        },
+        {
+            "abbreviation": "GP",
+            "displayName": "Games Played"
+        },
+        {
+            "abbreviation": "IN20",
+            "displayName": "Punts Inside 20"
+        },
+        {
+            "abbreviation": "IN20%",
+            "displayName": "Punts Inside 20 Percentage"
+        },
+        {
+            "abbreviation": "INT",
+            "displayName": "Interceptions"
+        },
+        {
+            "abbreviation": "KB",
+            "displayName": "Kicks Blocked"
+        },
+        {
+            "abbreviation": "KRFC",
+            "displayName": "Kick Return Fair Catches"
+        },
+        {
+            "abbreviation": "LNG",
+            "displayName": "Long Rushing"
+        },
+        {
+            "abbreviation": "LST",
+            "displayName": "Rushing Fumbles Lost"
+        },
+        {
+            "abbreviation": "NET",
+            "displayName": "Net Average Punt Yards"
+        },
+        {
+            "abbreviation": "PASS",
+            "displayName": "Passing Touchdowns"
+        },
+        {
+            "abbreviation": "PAT",
+            "displayName": "Kick Extra Points"
+        },
+        {
+            "abbreviation": "PD",
+            "displayName": "Passes Defended"
+        },
+        {
+            "abbreviation": "PTS",
+            "displayName": "Total Points"
+        },
+        {
+            "abbreviation": "PUNTS",
+            "displayName": "Punts"
+        },
+        {
+            "abbreviation": "REC",
+            "displayName": "Receptions"
+        },
+        {
+            "abbreviation": "RET",
+            "displayName": "Return Touchdowns"
+        },
+        {
+            "abbreviation": "RTG",
+            "displayName": "Passer Rating"
+        },
+        {
+            "abbreviation": "RUSH",
+            "displayName": "Rushing Touchdowns"
+        },
+        {
+            "abbreviation": "SACK",
+            "displayName": "Total Sacks"
+        },
+        {
+            "abbreviation": "SOLO",
+            "displayName": "Solo Tackles"
+        },
+        {
+            "abbreviation": "STF",
+            "displayName": "Stuffs"
+        },
+        {
+            "abbreviation": "STFYDS",
+            "displayName": "Stuff Yards"
+        },
+        {
+            "abbreviation": "TB",
+            "displayName": "Touchbacks"
+        },
+        {
+            "abbreviation": "TB%",
+            "displayName": "Touchback Percentage"
+        },
+        {
+            "abbreviation": "TD",
+            "displayName": "Rushing Touchdowns"
+        },
+        {
+            "abbreviation": "TGTS",
+            "displayName": "Receiving Targets"
+        },
+        {
+            "abbreviation": "TOT",
+            "displayName": "Total Tackles"
+        },
+        {
+            "abbreviation": "XPA",
+            "displayName": "Extra Point Attempts"
+        },
+        {
+            "abbreviation": "XPM",
+            "displayName": "Extra Points Made"
+        },
+        {
+            "abbreviation": "YDS",
+            "displayName": "Rushing Yards"
+        }
+    ]
+}

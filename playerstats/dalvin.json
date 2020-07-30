@@ -1,0 +1,129 @@
+{
+    "rushing": [
+        {
+            "teamId": "16",
+            "teamSlug": "minnesota-vikings",
+            "season": {
+                "year": 2017,
+                "displayName": "2017"
+            },
+            "stats": [
+                "4",
+                "74",
+                "354",
+                "4.8",
+                "2",
+                "33",
+                "15",
+                "1",
+                "1"
+            ],
+            "position": "RB"
+        },
+        {
+            "teamId": "16",
+            "teamSlug": "minnesota-vikings",
+            "season": {
+                "year": 2018,
+                "displayName": "2018"
+            },
+            "stats": [
+                "11",
+                "133",
+                "615",
+                "4.6",
+                "2",
+                "70",
+                "22",
+                "2",
+                "2"
+            ],
+            "position": "RB"
+        },
+        {
+            "teamId": "16",
+            "teamSlug": "minnesota-vikings",
+            "season": {
+                "year": 2019,
+                "displayName": "2019"
+            },
+            "stats": [
+                "14",
+                "250",
+                "1,135",
+                "4.5",
+                "13",
+                "75",
+                "60",
+                "3",
+                "2"
+            ],
+            "position": "RB"
+        }
+    ],
+    "receiving": [
+        {
+            "teamId": "16",
+            "teamSlug": "minnesota-vikings",
+            "season": {
+                "year": 2017,
+                "displayName": "2017"
+            },
+            "stats": [
+                "4",
+                "11",
+                "16",
+                "90",
+                "8.2",
+                "0",
+                "36",
+                "3",
+                "0",
+                "0"
+            ],
+            "position": "RB"
+        },
+        {
+            "teamId": "16",
+            "teamSlug": "minnesota-vikings",
+            "season": {
+                "year": 2018,
+                "displayName": "2018"
+            },
+            "stats": [
+                "11",
+                "40",
+                "49",
+                "305",
+                "7.6",
+                "2",
+                "27",
+                "15",
+                "0",
+                "0"
+            ],
+            "position": "RB"
+        },
+        {
+            "teamId": "16",
+            "teamSlug": "minnesota-vikings",
+            "season": {
+                "year": 2019,
+                "displayName": "2019"
+            },
+            "stats": [
+                "14",
+                "53",
+                "63",
+                "519",
+                "9.8",
+                "0",
+                "31",
+                "26",
+                "1",
+                "0"
+            ],
+            "position": "RB"
+        }
+    ]
+}
