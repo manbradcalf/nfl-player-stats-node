@@ -1,0 +1,34 @@
+// Get all players who rushed for more than 10 TDs in 2019
+match (s:NFLStatisticalSeason)<-[r:RUSHED_FOR]-(p:Player) where r.tds < 10 return p
+
+// example create call
+CREATE (dalvinCook2019:StatBlock
+            gamesPlayed: 14,
+            rushingAttempts: 250,
+            rushingYards: 1,135,
+            yardsPerRushAttempt: 4.5,
+            rushingTouchdowns: 13,
+            longRushing: 75,
+            rushingFirstDowns: 60,
+            rushingFumbles: 3,
+            rushingFumblesLost: 2
+            receptions: 53,
+            receivingTargets: 63,
+            receivingYards: 519,
+            yardsPerReception: 9.8,
+            receivingTouchdowns: 0,
+            longReception: 31,
+            receivingFirstDowns: 26,
+            receivingFumbles: 1,
+            receivingFumblesLost: 0
+            passingTouchdowns: 0,
+            rushingTouchdowns: 13,
+            receivingTouchdowns: 0,
+            returnTouchdowns: 0,
+            totalTouchdowns: 13,
+            totalTwoPointConvs: 0,
+            kickExtraPoints: 0,
+            fieldGoals: 0,
+            totalPoints: 78
+        }
+    )
