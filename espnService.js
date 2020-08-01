@@ -48,18 +48,6 @@ function generateStatsForCategory(category, careerStats) {
   })
 }
 
-let fuller = {
-  id: 3052876,
-  fullName: "Will Fuller",
-  defaultPosition: "WR"
-}
-
-let russel = {
-  id: 14881,
-  fullName: "Russell Wilson",
-  defaultPosition: "TQB"
-}
-
 function writeStatsForPlayer(playerSummary) {
   let url = espnStats + "/" + playerSummary.id.toString() + "/stats?region=us&lang=en&contentorigin=espn"
   console.log("url i'm trying to hit for " + playerSummary.fullName + " is " + url + "\n")
@@ -78,9 +66,6 @@ function writeStatsForPlayer(playerSummary) {
     })
 };
 
-writeStatsForPlayer(russel);
-
-
 // Script does stuff now 
 espnAPI.setCookies({
   espnS2:
@@ -88,36 +73,36 @@ espnAPI.setCookies({
   SWID: "A0C037F3-FB5E-4932-AF85-0A9BDAB4C45B",
 });
 
-// let skillPlayers;
+let skillPlayers;
 
-// espnAPI.getFreeAgents({
-//   seasonId: 2019,
-//   scoringPeriodId: 2,
-// }).then((players) => {
-//   console.log("Players object looks like this" + JSON.stringify(players[0]));
-//   skillPlayers = players.filter((item) => {
-//     console.log("What am i wroking with item wise\n" + JSON.stringify(item))
+espnAPI.getFreeAgents({
+  seasonId: 2019,
+  scoringPeriodId: 2,
+}).then((players) => {
+  console.log("Players object looks like this" + JSON.stringify(players[0]));
+  skillPlayers = players.filter((item) => {
+    console.log("What am i wroking with item wise\n" + JSON.stringify(item))
 
-//     // Defenses have negative ids and I think it breaks this
-//     return item.player.id > 0
-//   })
+    // Defenses have negative ids and I think it breaks this
+    return item.player.id > 0
+  })
 
-//   skillPlayers.forEach((item) => {
-//     // All wideouts are listed by ESPN as RB/WR fome reason
-//     if (item.player.defaultPosition == "RB/WR") {
-//       item.player.defaultPosition = "WR"
-//     }
+  skillPlayers.forEach((item) => {
+    // All wideouts are listed by ESPN as RB/WR fome reason
+    if (item.player.defaultPosition == "RB/WR") {
+      item.player.defaultPosition = "WR"
+    }
 
-//     let playerSummary = {
-//       id: item.player.id,
-//       firstName: item.player.firstName,
-//       lastName: item.player.lastName,
-//       fullName: item.player.fullName,
-//       defaultPosition: item.player.defaultPosition
-//     }
-//     writeStatsForPlayer(playerSummary);
-//   })
-// })
-//   .catch((error) => {
-//     console.log(error);
-//   });;
+    let playerSummary = {
+      id: item.player.id,
+      firstName: item.player.firstName,
+      lastName: item.player.lastName,
+      fullName: item.player.fullName,
+      defaultPosition: item.player.defaultPosition
+    }
+    writeStatsForPlayer(playerSummary);
+  })
+})
+  .catch((error) => {
+    console.log(error);
+  });;
