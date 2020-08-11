@@ -1,32 +1,46 @@
 // default export
-import pkg from 'neo4j-driver';
-const { driver, auth } = pkg;
-
+const n4j = require('neo4j-driver');
+const driver = n4j.driver;
+const auth = n4j.auth;
 const dbDriver = driver('neo4j://localhost:7687', auth.basic('ffadmin', 'qwerty12!'))
-const session = dbDriver.session()
 
-// Example queries for future reference
-const playersWhoRushedForTenOrMoreGamesIn2018 =
-    "match (s:NFLStatisticalSeason)<-[r:RUSHED_FOR]-(p:Player) where r.gamesPlayed > 10 return p, r, s"
-const getAll = "match (p) return"
+async function playerStatsByYearAndType(playerName, categoryName, year) {
+    return queryDB(`match (p:Player{name: \"${playerName}\"})-[r:${categoryName}]->(s:NFLStatisticalSeason{name:${year}}) return r`)
+}
 
-async function getPlayerByName(name) {
-    let query = `match (p:Player{name:\"${name}\"}) return p`
+async function generateSeasons() {
+    queryDB(
+        `create (s16:NFLStatisticalSeason{name:2016})
+        create (s17:NFLStatisticalSeason{name:2017})
+        create (s18:NFLStatisticalSeason{name:2018})`
+    )
+}
 
+//TODO: Create player record
+async function queryDB(query) {
     try {
-        const result = await session.run(query);
-        const singleRecord = result.records[0];
-        const node = singleRecord.get(0);
+        const session = await dbDriver.session()
 
-        // returns { name: 'Aaron Jones', team: 'GB', pos: 'RB' }
-        console.log(node.properties);
-    }
-    finally {
-        await session.close
+        if (query.startsWith("create")) {
+            console.log(`Running create query\n${query}\non session\n${session}`)
+        }
+
+        const result = await session.run(query)
+
+        if (result.records.length != 0) {
+            console.log(`Returning this result for ${query}\n\n${result}`)
+        }
+        await session.close()
+        console.log("closed session\n")
+        return result;
+
+    } catch (error) {
+        console.log(error);
     }
 }
 
-getPlayerByName("Dalvin Cook")
 
-//TODO: Create player record
+module.exports.queryDB = queryDB
+module.exports.generateSeasons = generateSeasons
+module.exports.playerStatsByYearAndType = playerStatsByYearAndType
 //TODO: Parameterized query function(s)?
