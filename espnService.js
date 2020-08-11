@@ -3,7 +3,7 @@ const espnAPI = new pkg.Client({ leagueId: 1077416 });
 const espnStats = "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes"
 const util = require('util');
 const axios = require("axios");
-const {queryDB, playerStatsByYearAndType} = require("./dbclient.js");
+const { queryDB, playerStatsByYearAndType, generateSeasons } = require("./dbclient.js");
 
 async function writePlayerToDB(playerSummary, response) {
   // check for existing player node. if not existing, create one
@@ -42,17 +42,24 @@ async function generateStatsForCategory(category, playerSummary) {
     let season = seasons[index];
 
     // Get the stats
-    let seasonStatsForThisCategory =
-      await playerStatsByYearAndType(playerSummary.name, categoryName,season.season.year)
+    let seasonStatsForThisCategory = await playerStatsByYearAndType(
+      playerSummary.name,
+      categoryName,
+      season.season.year
+    )
 
     // If they don't exist, make the stats
     if (seasonStatsForThisCategory.records.length == 0) {
       //TODO; Broken
-      await queryDB(`match (p:Player{name: \"${playerSummary.name}\"}) match(s:NFLStatisticalSeason{name:${season.season.year}}) create (p)-[r:${categoryName}]->(s) return r `)
+      let dbStatsForSeason = await queryDB(
+        `MATCH (p:Player), (s:NFLStatisticalSeason) 
+              WHERE p.name = \"${playerSummary.name}\" AND s.name = ${season.season.year} 
+              CREATE (p)-[r:${categoryName}]->(s) RETURN type(r) `)
+      console.log(`season stats in db: ${dbStatsForSeason.results}`)
     }
 
-    for (let index = 0; index < season.stats; index++) {
-      let stat = season.stats[index];
+    for (let statIndex = 0; statIndex < season.stats.length; statIndex++) {
+      let stat = season.stats[statIndex];
 
       // addStatForYear is a long query which:
       // ensures the season and relationship exist
@@ -60,17 +67,15 @@ async function generateStatsForCategory(category, playerSummary) {
       // matches the season node (which has been created outside of this script)
       // matches the relationship between player and season
       // where this statistic is a property on that relationship
-      let addStatForYear =
-        `match (p: Player {name: \"${playerSummary.name}\"}) match (s: NFLStatisticalSeason {name: ${season.season.year}}) match (p)-[r:${categoryName}]->(s) set r.${statKeys[index]} = ${stat}`
-      await queryDB(addStatForYear)
+      let addStatForYear = await queryDB(
+        `MATCH (p: Player {name: \"${playerSummary.name}\"}) 
+               MATCH (s: NFLStatisticalSeason {name: ${season.season.year}}) 
+               MATCH (p)-[r:${categoryName}]->(s) 
+              SET r.${statKeys[statIndex]} = ${stat.replace(",", "")}`)
+
+      console.log(`just added stats: ${addStatForYear.records}`)
     }
   };
-}
-
-let dalvin = {
-  espnid: 3116593,
-  name: "Dalvin Cook",
-  position: "RB"
 }
 
 async function writeStatsForPlayer(playerSummary) {
@@ -95,6 +100,8 @@ espnAPI.setCookies({
   SWID: "A0C037F3-FB5E-4932-AF85-0A9BDAB4C45B",
 });
 
+
+generateSeasons()
 let skillPlayers;
 
 espnAPI.getFreeAgents({
