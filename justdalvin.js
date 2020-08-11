@@ -71,10 +71,7 @@ async function generateStatsForCategory(category, playerSummary) {
                 `MATCH (p: Player {name: \"${playerSummary.name}\"}) 
                  MATCH (s: NFLStatisticalSeason {name: ${season.season.year}}) 
                  MATCH (p)-[r:${categoryName}]->(s) 
-                SET r.${statKeys[statIndex]} = ${stat} 
-                RETURN r `)
-
-            console.log(`just added stats: ${addStatForYear.records}`)
+                SET r.${statKeys[statIndex]} = ${stat}`)
         }
     };
 }
