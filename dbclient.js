@@ -9,11 +9,15 @@ async function playerStatsByYearAndType(playerName, categoryName, year) {
 }
 
 async function generateSeasons() {
-    queryDB(
-        `create (s16:NFLStatisticalSeason{name:2016})
-        create (s17:NFLStatisticalSeason{name:2017})
-        create (s18:NFLStatisticalSeason{name:2018})`
-    )
+    // queryDB(
+    //     `create (s14:NFLStatisticalSeason{name:2014})
+    //     create (s15:NFLStatisticalSeason{name:2015})
+    //     create (s16:NFLStatisticalSeason{name:2016})
+    //     create (s17:NFLStatisticalSeason{name:2017})
+    //     create (s18:NFLStatisticalSeason{name:2018})
+    //     create (s19:NFLStatisticalSeason{name:2019})`
+    // )
+    queryDB(`create (s19:NFLStatisticalSeason{name:2019})`)
 }
 
 //TODO: Create player record
