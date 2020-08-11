@@ -1,6 +1,5 @@
 {
   "name": "ff-stats-visualizer",
-  "type": "module",
   "version": "1.0.0",
   "description": "Visualize fantasy football stats",
   "main": "app.js",
