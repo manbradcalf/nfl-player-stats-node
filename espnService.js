@@ -1,12 +1,20 @@
-import fs from "fs";
-import axios from "axios";
-import pkg from "espn-fantasy-football-api/node-dev.js";
-const { Client } = pkg;
-const espnAPI = new Client({ leagueId: 1077416 });
+const pkg = require("espn-fantasy-football-api/node-dev.js");
+const espnAPI = new pkg.Client({ leagueId: 1077416 });
 const espnStats = "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes"
+const util = require('util');
+const axios = require("axios");
+const {queryDB, playerStatsByYearAndType} = require("./dbclient.js");
 
-function playerStatMapper(playerSummary, response) {
-  console.log("mapping stats for " + JSON.stringify(playerSummary) + " \n")
+async function writePlayerToDB(playerSummary, response) {
+  // check for existing player node. if not existing, create one
+  let playerNode = await queryDB(`match (p:Player{name:\"${playerSummary.name}\"}) return p`)
+
+  // if we have no player, make one
+  if (playerNode.records.length == 0) {
+    // Using util inspect here to trim quotes from json keys
+    // https://stackoverflow.com/questions/11233498/json-stringify-without-quotes-on-properties
+    await queryDB(`create (p:Player${util.inspect(playerSummary)}) return p`)
+  }
 
   // ESPN statistical category. Indexed by stat type rather than year for some reason
   let espnRushingCategory = response.data.categories.filter((statCategory) => { return statCategory.name === "rushing" })[0];
@@ -15,54 +23,68 @@ function playerStatMapper(playerSummary, response) {
   let espnReceivingCategory = response.data.categories.filter((statCategory) => { return statCategory.name === "receiving" })[0];
   let espnResponseCategories = [espnRushingCategory, espnReceivingCategory, espnPassingCategory, espnScoringCategory];
 
-  let careerStats = {}
-  espnResponseCategories.forEach((category) => {
+
+  // Use for loop because forEach doesn't work well with async/await
+  for (let index = 0; index < espnResponseCategories.length; index++) {
+    let category = espnResponseCategories[index]
     // TODO: what is null safety in javascript
-    if (category) {
-      generateStatsForCategory(category, careerStats)
-    }
-  });
-  return careerStats;
+    if (category) { generateStatsForCategory(category, playerSummary) }
+  };
 }
 
-function generateStatsForCategory(category, careerStats) {
+async function generateStatsForCategory(category, playerSummary) {
   let statKeys = category.names;
   let seasons = category.statistics;
   let categoryName = category.name;
 
-  seasons.forEach((season) => {
-    // this would be a good SO question. I feel like I shouldn't have to do this
-    if (!careerStats[season.season.year]) {
-      // If we don't have a year stats blob for this year yet, make one
-      careerStats[season.season.year] = {}
+  // For each season of this particulat stat category (i.e. rushing, passing)
+  for (let index = 0; index < seasons.length; index++) {
+    let season = seasons[index];
+
+    // Get the stats
+    let seasonStatsForThisCategory =
+      await playerStatsByYearAndType(playerSummary.name, categoryName,season.season.year)
+
+    // If they don't exist, make the stats
+    if (seasonStatsForThisCategory.records.length == 0) {
+      //TODO; Broken
+      await queryDB(`match (p:Player{name: \"${playerSummary.name}\"}) match(s:NFLStatisticalSeason{name:${season.season.year}}) create (p)-[r:${categoryName}]->(s) return r `)
     }
 
-    if (!careerStats[season.season.year][categoryName]) {
-      // If we don't have a stat blob for this category yet, make one
-      careerStats[season.season.year][categoryName] = {}
-    }
+    for (let index = 0; index < season.stats; index++) {
+      let stat = season.stats[index];
 
-    season.stats.forEach((stat, index) => {
-      careerStats[season.season.year][categoryName][statKeys[index]] = stat
-    })
-  })
+      // addStatForYear is a long query which:
+      // ensures the season and relationship exist
+      // matches the player node
+      // matches the season node (which has been created outside of this script)
+      // matches the relationship between player and season
+      // where this statistic is a property on that relationship
+      let addStatForYear =
+        `match (p: Player {name: \"${playerSummary.name}\"}) match (s: NFLStatisticalSeason {name: ${season.season.year}}) match (p)-[r:${categoryName}]->(s) set r.${statKeys[index]} = ${stat}`
+      await queryDB(addStatForYear)
+    }
+  };
 }
 
-function writeStatsForPlayer(playerSummary) {
-  let url = espnStats + "/" + playerSummary.id.toString() + "/stats?region=us&lang=en&contentorigin=espn"
-  console.log("url i'm trying to hit for " + playerSummary.fullName + " is " + url + "\n")
+let dalvin = {
+  espnid: 3116593,
+  name: "Dalvin Cook",
+  position: "RB"
+}
 
+async function writeStatsForPlayer(playerSummary) {
+  let url = espnStats + "/" + playerSummary.espnid.toString() + "/stats?region=us&lang=en&contentorigin=espn"
   axios.get(url)
     .then((response) => {
-      let stats = playerStatMapper(playerSummary, response);
-      fs.writeFile("playerstats/" + playerSummary.defaultPosition + "/" + playerSummary.fullName + ".json", JSON.stringify(stats),
-        function (err) {
-          if (err) return console.log(err);
-        });
+      if (response.data.categories != undefined) {
+        writePlayerToDB(playerSummary, response);
+      }
     })
     .catch((error) => {
-      console.log("Unable to get " + playerSummary.fullName + " stats because...\n")
-      console.log(error)
+      console.log(
+        "Unable to get " + playerSummary.fullName +
+        ` stats because...\n${error}`)
     })
 };
 
@@ -79,10 +101,7 @@ espnAPI.getFreeAgents({
   seasonId: 2019,
   scoringPeriodId: 2,
 }).then((players) => {
-  console.log("Players object looks like this" + JSON.stringify(players[0]));
   skillPlayers = players.filter((item) => {
-    console.log("What am i wroking with item wise\n" + JSON.stringify(item))
-
     // Defenses have negative ids and I think it breaks this
     return item.player.id > 0
   })
@@ -94,11 +113,9 @@ espnAPI.getFreeAgents({
     }
 
     let playerSummary = {
-      id: item.player.id,
-      firstName: item.player.firstName,
-      lastName: item.player.lastName,
-      fullName: item.player.fullName,
-      defaultPosition: item.player.defaultPosition
+      espnid: item.player.id,
+      name: item.player.fullName,
+      position: item.player.defaultPosition
     }
     writeStatsForPlayer(playerSummary);
   })
