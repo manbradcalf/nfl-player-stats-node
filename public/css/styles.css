@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 1rem;
+}
+.results {
+  text-align: right;
+  display: inline-block;
+}
+
+.results button {
+margin: .5rem;}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.header {
+  padding-bottom: 1rem;
+}
+
+.header button {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+  color: black;
+  display: inline-block;
+  border-radius: 0.25rem;
+}
+
+.header button:hover {
+  background-color: black;
+  color: white;
+  border-radius: 0.25rem;
+}
+
+#search_submit,
+#search_input {
+  display: inline;
+}
+
+#subtitle-text,
+#like_button_container {
+  display: inline;
+}

@@ -1,0 +1,26 @@
+<header>
+
+  <link rel="stylesheet" href="/css/styles.css">
+</header>
+
+<div class="results">
+    <button>display</button>
+    <table>
+
+        <tr>
+            <td>Player</td>
+            <td>Position</td>
+            <td>ESPNId</td>
+        </tr>
+
+        {{#each results}}
+        <tr>
+          <td><a href="https://www.espn.com/nfl/player/_/id/{{this.espnid}}" target="_blank">{{this.name}}</td>
+            <td>{{this.pos}}</td>
+            <td>{{this.espnid}}</td>
+        </tr>
+        {{/each}}
+    </table>
+
+    <img src="https://cdn-media-1.freecodecamp.org/images/1*x-3p2C-nd9_RbXOZG0Dx0A.png" />
+</div>

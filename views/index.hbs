@@ -1,0 +1,56 @@
+<head>
+  <link rel="stylesheet" href="/css/styles.css">
+  <!--Load PureCSS-->
+
+  <link rel="stylesheet" />
+  <!--
+        The viewport meta element lets you control the 
+        the width and scale of the viewport on mobile browsers. 
+        Since you're building a responsive website, 
+        you want the width to be equal to the device's native width. 
+        Add this into your page's <head>.
+    -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<html>
+  <body>
+    <h1>NFL Stats Graph Database v1</h1>
+    <div class="header">
+      <button class="btn_header">Home</button>
+      <button class="btn_header">About</button>
+      <button class="btn_header">Contact</button>
+    </div>
+    <form action="results">
+      <input
+        id="search_input"
+        type="text"
+        placeholder="Search...."
+        name="dbquery"
+      />
+      <button id="search_submit" type="submit">Search</button>
+    </form>
+    <div class="results">
+      <button>display</button>
+      <table>
+        <tr>
+          <td>Player</td>
+          <td>Rush Yards</td>
+          <td>Pass Yards</td>
+          <td>Rec Yards</td>
+          <td>Receptions</td>
+          <td>Touchdowns</td>
+        </tr>
+        <tr>
+          <td>Ben Medcalf</td>
+          <td>1000</td>
+          <td>5000</td>
+          <td>1200</td>
+          <td>69</td>
+          <td>42</td>
+        </tr>
+      </table>
+
+      <img src="https://cdn-media-1.freecodecamp.org/images/1*x-3p2C-nd9_RbXOZG0Dx0A.png"/>
+    </div>
+  </body>
+</html>
