@@ -7,13 +7,19 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/app.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Just One Player",
             "program": "${workspaceFolder}/justdalvin.js"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "EspnService",
             "program": "${workspaceFolder}/espnService.js"
         }
     ]
