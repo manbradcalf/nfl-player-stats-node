@@ -3,18 +3,30 @@ body {
   padding: 1rem;
 }
 .results {
-  text-align: right;
+  text-align: left;
   display: inline-block;
 }
 
-.results button {
-margin: .5rem;}
+.results button {margin: .5rem;}
+
+table {
+  width: fit-content;
+  overflow-x:auto;
+}
 
 td,
 th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 2px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+
+.table-header {
+  border:2px solid #000000
 }
 
 .header {
@@ -35,12 +47,31 @@ th {
   border-radius: 0.25rem;
 }
 
-#search_submit,
-#search_input {
+#search_submit{
   display: inline;
 }
 
-#subtitle-text,
-#like_button_container {
-  display: inline;
+#results-header {
+  display: inline-block;
+  position: relative;
+  width: 20rem;
+}
+#search_input {
+  margin: 0px; 
+  height: 387px; 
+  width: 456px;
+}
+
+#data-viz-toggle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: inline-block;
+  background: #ffffff;
+  width: 3.5rem;
+}
+
+#piechart-svg {
+  width: 2.5rem;
+  height: auto;
 }
