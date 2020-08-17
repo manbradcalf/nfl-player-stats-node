@@ -1,26 +1,30 @@
 <header>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/css/styles.css">
 </header>
 
 <div class="results">
-    <button>display</button>
-    <table>
+  <div id="results-header">
+    <h1>Results</h1>
+    <button id="data-viz-toggle">
+      <img id="piechart-svg" src="pie-chart-svgrepo-com.svg" />
+    </button>
+  </div>
+  <table>
 
-        <tr>
-            <td>Player</td>
-            <td>Position</td>
-            <td>ESPNId</td>
-        </tr>
+    {{!-- make the header --}}
+    <tr>
+      {{#each header}}
+      <td class="table-header">{{this}}</td>
+      {{/each}}
+    </tr>
 
-        {{#each results}}
-        <tr>
-          <td><a href="https://www.espn.com/nfl/player/_/id/{{this.espnid}}" target="_blank">{{this.name}}</td>
-            <td>{{this.pos}}</td>
-            <td>{{this.espnid}}</td>
-        </tr>
-        {{/each}}
-    </table>
-
-    <img src="https://cdn-media-1.freecodecamp.org/images/1*x-3p2C-nd9_RbXOZG0Dx0A.png" />
+    {{#each results}}
+    <tr>
+      {{#each this}}
+      <td>{{this}}</td>
+      {{/each}}
+    </tr>
+    {{/each}}
+  </table>
 </div>
