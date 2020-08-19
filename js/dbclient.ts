@@ -46,7 +46,4 @@ async function queryDB(query) {
   }
 }
 
-module.exports.queryDB = queryDB;
-module.exports.generateSeasons = generateSeasons;
-module.exports.playerStatsByYearAndType = playerStatsByYearAndType;
-
+export { queryDB, generateSeasons, playerStatsByYearAndType };

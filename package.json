@@ -2,9 +2,10 @@
   "name": "ff-stats-visualizer",
   "version": "1.0.0",
   "description": "Visualize fantasy football stats",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "tsc && node dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   "author": "Ben Medcalf",
   "license": "ISC",
   "dependencies": {
+    "@types/express": "^4.17.7",
     "espn-fantasy-football-api": "^0.15.0",
     "express": "^4.17.1",
     "handlebars": "^4.7.6",
@@ -27,6 +29,7 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "grunt": "^1.2.1"
+    "grunt": "^1.2.1",
+    "tslint": "^6.1.3"
   }
 }

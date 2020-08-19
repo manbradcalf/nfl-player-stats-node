@@ -1,14 +1,14 @@
-const express = require("express");
-const dbClient = require("./js/dbclient");
-const app = express();
+import e from "express";
+import { queryDB } from "./js/dbclient";
+import "http-errors";
+const app = e();
 const port = 3000;
 let path = require("path");
-require("http-errors");
 // Set our static public folder for static assets such as css and images
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(e.static(path.join(__dirname, "/public")));
 
 // view engine setup
-app.set("views", path.join(__dirname, "./views"));
+app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "hbs");
 
 app.get("/", (req, res) => {
@@ -18,9 +18,9 @@ app.get("/", (req, res) => {
 app.get("/results", async (req, res, next) => {
   try {
     // get results from db for query
-    let dbResults = await dbClient.queryDB(req.query.dbquery);
+    let dbResults = await queryDB(req.query.dbquery);
 
-    let keys = dbResults.records[0].keys
+    let keys = dbResults.records[0].keys;
     let fields = dbResults.records[0]._fields;
     let headers = [];
     // grab the properties from the first record to make the headers
@@ -30,7 +30,7 @@ app.get("/results", async (req, res, next) => {
       // If field has no properties object we can assume
       // we've been given the value directly, ex: r.rushingYards
       if (!field.properties) {
-        // Keys.length should equal fields.length, so we can grab the 
+        // Keys.length should equal fields.length, so we can grab the
         // missing key value here by diving into the keys array
         headers.push(keys[i]);
       } else {
@@ -67,7 +67,7 @@ app.get("/results", async (req, res, next) => {
       results: rows,
     });
   } catch (err) {
-    next(err);
+    next(err.Neo4JError);
   }
 });
 app.listen(port, () => {
