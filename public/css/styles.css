@@ -5,13 +5,19 @@ body {
 .results {
   text-align: left;
   display: inline-block;
+  width: 100%;
 }
 
 .results button {margin: .5rem;}
 
-table {
-  width: fit-content;
+.table-wrapper {
   overflow-x:auto;
+}
+
+td:first-child {
+  position: sticky;
+  left: 0;  
+  background-color: #ddd;
 }
 
 td,
@@ -30,7 +36,8 @@ tr:nth-child(even) {
 }
 
 .header {
-  padding-bottom: 1rem;
+position: absolute;
+bottom:0;
 }
 
 .header button {
@@ -55,6 +62,8 @@ tr:nth-child(even) {
   display: inline-block;
   position: relative;
   width: 20rem;
+  height: fit-content;
+  margin-bottom: 0px;
 }
 #search_input {
   margin: 0px; 
@@ -74,4 +83,8 @@ tr:nth-child(even) {
 #piechart-svg {
   width: 2.5rem;
   height: auto;
+}
+
+#results-header-txt {
+  margin-bottom: 0px;
 }

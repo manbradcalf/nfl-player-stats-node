@@ -5,26 +5,27 @@
 
 <div class="results">
   <div id="results-header">
-    <h1>Results</h1>
+    <h1 id="results-header-txt">Results</h1>
     <button id="data-viz-toggle">
       <img id="piechart-svg" src="pie-chart-svgrepo-com.svg" />
     </button>
   </div>
-  <table>
 
-    {{!-- make the header --}}
-    <tr>
-      {{#each header}}
-      <td class="table-header">{{this}}</td>
-      {{/each}}
-    </tr>
+  <div class="table-wrapper">
+    <table>
+      <tr>
+        {{#each header}}
+        <td class="table-header">{{this}}</td>
+        {{/each}}
+      </tr>
 
-    {{#each results}}
-    <tr>
-      {{#each this}}
-      <td>{{this}}</td>
+      {{#each results}}
+      <tr>
+        {{#each this}}
+        <td>{{this}}</td>
+        {{/each}}
+      </tr>
       {{/each}}
-    </tr>
-    {{/each}}
-  </table>
+    </table>
+  </div>
 </div>
