@@ -5,7 +5,7 @@ const app = e();
 const port = 3000;
 let path = require("path");
 // Set our static public folder for static assets such as css and images
-app.use(e.static(path.join(__dirname, "/public")));
+app.use(e.static(path.join(__dirname, "../public")));
 
 // view engine setup
 app.set("views", path.join(__dirname, "../views"));
