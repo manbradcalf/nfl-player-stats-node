@@ -4,13 +4,15 @@ import "http-errors";
 const app = e();
 const port = 3000;
 let path = require("path");
+
 // Set our static public folder for static assets such as css and images
 app.use(e.static(path.join(__dirname, "../public")));
 
 // view engine setup
-app.set("views", path.join(__dirname, "../views"));
-app.set("view engine", "hbs");
+app.engine('hbs', require('exphbs'));
+app.set('view engine', 'hbs');
 
+// routes
 app.get("/", (req, res) => {
   res.render("index", { title: "Home" });
 });

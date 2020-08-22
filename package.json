@@ -20,6 +20,7 @@
   "dependencies": {
     "@types/express": "^4.17.7",
     "espn-fantasy-football-api": "^0.15.0",
+    "exphbs": "^1.2.0",
     "express": "^4.17.1",
     "handlebars": "^4.7.6",
     "hbs": "^4.1.1",

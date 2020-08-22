@@ -10,22 +10,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <html>
-  <body>
-    <div class="header">
-    <img src="factory.svg" style="width: 5vw; margin-bottom:0vw;">
-      <p>Fantasy Football Stat Factory</p>
-        <div class="headerButtons">
-          <button class="btn_header">Home</button>
-          <button class="btn_header">About</button>
-          <button class="btn_header" style="background-color:lightgreen;"><a href="https://paypal.me/benmedcalf?locale.x=en_US" style="color:black">Donate</a></button>
-          <button class="btn_header">Contact</button>
-      </div>
-    </div>
-    <div class="search_wrapper">
+
+<body>
+  {{>header}}
+  <div class="search_wrapper">
     <form action="results">
       <div class="stat_chooser_wrapper">
         <!-- stat selector for ranges -->
-        <label for "statistics"><h2>Stats</h2></label>
+        <label for "statistics">
+          <h2>Stats</h2>
+        </label>
         <select id="statistics" name="statistics">
           <optgroup label="Rushing">
             <option value="RushYards">Rushing Yards</option>
@@ -52,13 +46,13 @@
           <option value="LessThan">Less Than</option>
           <option value="EqualTo">Equal To</option>
         </select>
-        
+
         <input type="float"></input>
       </div>
 
-        <!-- player info selector -->
-        
-    <h2>Position</h2>
+      <!-- player info selector -->
+
+      <h2>Position</h2>
       <div class="positions_wrapper">
         <input type="checkbox" id="rb_checkbox" name="rb" value="RB">
         <label for="rb_checkbox">RB</label>
@@ -70,6 +64,7 @@
       <br>
       <button id="search_submit" type="submit">Search</button>
     </form>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>
