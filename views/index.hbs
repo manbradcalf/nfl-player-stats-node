@@ -1,4 +1,5 @@
 <head>
+  <script src="/js/homepage.js"></script>
   <link rel="stylesheet" type="text/css" href="/css/styles.css">
   <!--
         The viewport meta element lets you control the 
@@ -13,17 +14,17 @@
 
 <body>
   {{>header}}
+  <h2>Raw search</h2>
   <form action="results">
     <input type="text" name="dbquery" action="/results">
     <input type="submit">
   </form>
   <div class="search_wrapper">
     <form action="results">
-      <div class="stat_chooser_wrapper">
-   <h2>Stats</h2>
+      <div class="stat_chooser_wrapper" id="stat_chooser_wrapper">
+        <h2>Stats</h2>
         <!-- stat selector for ranges -->
-        <label for "statistics">
-        </label>
+        <label for "statistics"></label>
         <select id="statistics" name="statistics">
           <optgroup label="Rushing">
             <option value="RushYards">Rushing Yards</option>
@@ -51,20 +52,20 @@
           <option value="EqualTo">Equal To</option>
         </select>
 
-        <input type="float"></input>
+        <input type="float" name="quantifier">
 
-        <input type="submit">
+        <button type ="button" onclick="addStatToQuery()">+</>
       </div>
 
       <!-- player info selector -->
 
       <h2>Position</h2>
       <div class="positions_wrapper">
-        <input type="checkbox" id="rb_checkbox" name="rb" value="RB">
+        <input type="checkbox" id="rb_checkbox" name="rb" value=true>
         <label for="rb_checkbox">RB</label>
-        <input type="checkbox" id="wr_checkbox" name="wr" value="WR">
+        <input type="checkbox" id="wr_checkbox" name="wr" value=true>
         <label for="wr_checkbox">WR</label>
-        <input type="checkbox" id="qb_checkbox" name="qb" value="QB">
+        <input type="checkbox" id="qb_checkbox" name="qb" value=true>
         <label for="qb_checkbox">QB</label>
       </div>
       <br>
@@ -72,5 +73,5 @@
     </form>
   </div>
 </body>
-
 </html>
+

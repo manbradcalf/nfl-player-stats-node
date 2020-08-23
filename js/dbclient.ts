@@ -1,3 +1,5 @@
+import Result, { QueryResult } from "neo4j-driver/types/result";
+
 // default export
 const n4j = require("neo4j-driver");
 const driver = n4j.driver;
@@ -22,7 +24,6 @@ async function generateSeasons() {
          create (s18:NFLStatisticalSeason{name:2018})
          create (s19:NFLStatisticalSeason{name:2019})`
   );
-  // queryDB(`create (s19:NFLStatisticalSeason{name:2019})`);
 }
 
 async function queryDB(query) {
@@ -46,4 +47,66 @@ async function queryDB(query) {
   }
 }
 
-export { queryDB, generateSeasons, playerStatsByYearAndType };
+async function resultsMapper(dbResults: QueryResult) {
+  let keys = dbResults.records[0].keys;
+  let fields = dbResults.records[0]._fields;
+  let headers = [];
+  // grab the properties from the first record to make the headers
+  // field == player || relationship || season, etc
+  for (let i = 0; i < fields.length; i++) {
+    let field = fields[i];
+    // If field has no properties object we can assume
+    // we've been given the value directly, ex: r.rushingYards
+    if (!field.properties) {
+      // Keys.length should equal fields.length, so we can grab the
+      // missing key value here by diving into the keys array
+      headers.push(keys[i]);
+    } else {
+      // keys are columns, like rushing yards or player name
+      Object.keys(field.properties).forEach((p) => {
+        if (!headers[p]) {
+          headers.push(p);
+        }
+      });
+    }
+  }
+
+  // format results for consumption by view
+  let rows = [];
+  dbResults.records.forEach((r) => {
+    let tableRow = [];
+    r._fields.forEach((field) => {
+      // populate the table row with properties
+      if (!field.properties) {
+        tableRow.push(field);
+      } else {
+        Object.values(field.properties).forEach((value) => {
+          tableRow.push(value);
+        });
+      }
+    });
+    rows.push(tableRow);
+  });
+  return { headers, rows };
+}
+
+function queryMapper(req)  {
+  // create query line to fetch desired stat
+  function matchStatTemplate(statType, season, operator, quantifier) {
+    return `MATCH (n:Player)-[r:${statType}]->(s:NFLStatisticalSeason{name:${season}}) WHERE r ${operator} ${quantifier}`;
+  }
+
+  req.params.forEach((param) => {
+    console.log(`this param is ${param}`);
+  });
+
+  // example query:
+  // http://localhost:3000/results?statistics=ReceivingTDs&operator=LessThan&quantifier=10&statistics=Receptions&operator=GreaterThan&quantifier=90&wr=true
+}
+export {
+  queryDB,
+  generateSeasons,
+  playerStatsByYearAndType,
+  resultsMapper,
+  queryMapper,
+};

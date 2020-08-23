@@ -57,7 +57,8 @@ tr:nth-child(even) {
   justify-content: baseline;
 }
 
-button {
+button,
+input[type="submit"] {
   background-color: white;
   border-width: 0.12vw;
   color: black;

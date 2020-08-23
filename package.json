@@ -5,6 +5,7 @@
   "main": "dist/app.js",
   "scripts": {
     "test": "test",
+    "debug": "tsc && node --inspect dist/app.js",
     "start": "tsc && node dist/app.js"
   },
   "repository": {
