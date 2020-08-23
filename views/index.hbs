@@ -13,12 +13,16 @@
 
 <body>
   {{>header}}
+  <form action="results">
+    <input type="text" name="dbquery" action="/results">
+    <input type="submit">
+  </form>
   <div class="search_wrapper">
     <form action="results">
       <div class="stat_chooser_wrapper">
+   <h2>Stats</h2>
         <!-- stat selector for ranges -->
         <label for "statistics">
-          <h2>Stats</h2>
         </label>
         <select id="statistics" name="statistics">
           <optgroup label="Rushing">
@@ -48,6 +52,8 @@
         </select>
 
         <input type="float"></input>
+
+        <input type="submit">
       </div>
 
       <!-- player info selector -->

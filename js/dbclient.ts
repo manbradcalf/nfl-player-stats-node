@@ -4,7 +4,7 @@ const driver = n4j.driver;
 const auth = n4j.auth;
 const dbDriver = driver(
   "neo4j://localhost:7687",
-  auth.basic("ffadmin", "qwerty12!")
+  auth.basic("ff2020admin", "qwerty12!")
 );
 
 async function playerStatsByYearAndType(playerName, categoryName, year) {
@@ -22,7 +22,7 @@ async function generateSeasons() {
          create (s18:NFLStatisticalSeason{name:2018})
          create (s19:NFLStatisticalSeason{name:2019})`
   );
-  queryDB(`create (s19:NFLStatisticalSeason{name:2019})`);
+  // queryDB(`create (s19:NFLStatisticalSeason{name:2019})`);
 }
 
 async function queryDB(query) {

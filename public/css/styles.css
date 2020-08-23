@@ -32,11 +32,12 @@ tr:nth-child(even) {
 }
 
 .header {
+  background-color: aliceblue;
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 2vw;
   justify-content: space-between;
   border-bottom: solid 0.25vw #000000;
-  align-items: baseline;
+  align-items: flex-end;
 }
 
 .header p {
@@ -45,31 +46,26 @@ tr:nth-child(even) {
   display: inline-block;
   font-size: 4vw;
   padding-right: 2vw;
-  padding-left: 2vw;
-}
-
-h2 {
-  margin-bottom: 0vw;
-  float: left;
 }
 
 .headerButtons {
   width: fit-content;
   height: fit-content;
   display: flex;
+  margin-bottom: 0.5vw;
   align-items: baseline;
   justify-content: baseline;
 }
 
 button {
   background-color: white;
-  border-width: 0.22vw;
+  border-width: 0.12vw;
   color: black;
   width: auto;
   height: fit-content;
   display: inline-block;
   font-size: 1.5vw;
-  margin: 0px;
+  margin: 2px;
 }
 
 button:hover {
@@ -80,6 +76,7 @@ button:hover {
 
 input[type="checkbox"] {
   margin: 0.25vw;
+  display: inline-block;
 }
 
 #search_submit {
