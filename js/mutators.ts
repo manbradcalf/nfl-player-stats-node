@@ -39,22 +39,25 @@ function queryMapper(req) {
   let whereClause = "where ";
   let returnClause = "return p, ";
   if (query.statistics instanceof Array) {
-    let lines = query.statistics.length;
+    //TODO: If theres an operator, we need a match clause...
+    // this is a hacky way to figure out how many match clauses to build
+    let lines = query.operator.length;
     // match clause
     for (let i = 0; i < lines; i++) {
-      matchClause += `match (p)-[r${i}]->(s) `;
+      matchClause += `match (p)-[r${i}]->(s${i}:NFLStatisticalSeason{name:${query.season[i]}}) `;
       whereClause += `r${i}.${query.statistics[i]} ${query.operator[i]} ${query.quantifier[i]} `;
-      returnClause += `r${i} as ${query.statistics[i]}, `;
       // add 'and' for every condition but the last
       if (i < lines - 1) {
+        returnClause += `r${i}, s${i}, `;
         whereClause += "and ";
       } else {
-        returnClause += "s";
+        // on the last condition, dont append trailing comma to return clause
+        returnClause += `r${i}, s${i}`
       }
     }
     return matchClause + whereClause + returnClause;
   } else {
-    console.log("Haven't impelmented single line query rn\n\n")
+    console.log("Haven't impelmented single line query rn\n\n");
   }
 }
 

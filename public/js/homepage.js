@@ -31,13 +31,13 @@ let statRowHtml = `<label for "statistics"></label>
 
         <input type="float" name="quantifier">
 
-        <button type="button" onclick="addStatToQuery()">+</button>
 
         <select id="season" name="season">
           <option value="2017">2017</option>
           <option value="2018">2018</option>
           <option value="2019">2019</option>
-        </select>`;
+        </select>
+        <button type="button" onclick="addStatToQuery()">+</button>`;
 
 function addStatToQuery() {
   let statsWrapper = document.getElementById("stat_chooser_wrapper");
