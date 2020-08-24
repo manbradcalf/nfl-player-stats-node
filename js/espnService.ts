@@ -1,5 +1,5 @@
 const pkg = require("espn-fantasy-football-api/node-dev.js");
-import { queryDB, playerStatsByYearAndType, generateSeasons} from "./dbclient"
+import { queryDB, generateSeasons, playerStatsByYearAndType} from "./dbclient"
 const espnAPI = new pkg.Client({ leagueId: 1077416 });
 const espnStats = "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes"
 const util = require('util');

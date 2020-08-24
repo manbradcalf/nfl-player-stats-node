@@ -1,5 +1,6 @@
 import e from "express";
-import { queryDB, queryMapper, resultsMapper } from "./js/dbclient";
+import { queryDB } from "./js/dbclient";
+import { mapResultsForTable, queryMapper } from "./js/mutators";
 import "http-errors";
 const app = e();
 const port = 3000;
@@ -19,8 +20,9 @@ app.get("/", (req, res) => {
 
 app.get("/results", async (req, res, next) => {
   try {
-    let headers,
-      rows = resultsMapper(await queryDB(queryMapper(req)));
+    let query = queryMapper(req);
+    let dbResponse = await queryDB(query);
+    let { headers, rows } = mapResultsForTable(dbResponse);
     // get results from db for query
     // render view
     res.render("results", {
@@ -29,7 +31,7 @@ app.get("/results", async (req, res, next) => {
       results: rows,
     });
   } catch (err) {
-    next(err.Neo4JError);
+    console.log(err)
   }
 });
 app.listen(port, () => {
