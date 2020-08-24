@@ -1,30 +1,4 @@
-<head>
-  <script src="/js/homepage.js"></script>
-  <link rel="stylesheet" type="text/css" href="/css/styles.css">
-  <!--
-        The viewport meta element lets you control the 
-        the width and scale of the viewport on mobile browsers. 
-        Since you're building a responsive website, 
-        you want the width to be equal to the device's native width. 
-        Add this into your page's <head>.
-    -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-</head>
-<html>
-
-<body>
-  {{>header}}
-  <h2>Raw search</h2>
-  <form action="results">
-    <input type="text" name="dbquery" action="/results">
-    <input type="submit">
-  </form>
-  <div class="search_wrapper">
-    <form action="results">
-        <h2>Stats</h2>
-      <div class="stat_chooser_wrapper" id="stat_chooser_wrapper">
-        <!-- stat selector for ranges -->
-        <label for "statistics"></label>
+let statRowHtml = `<label for "statistics"></label>
         <select id="statistics" name="statistics">
           <optgroup label="Rushing">
             <option value="rushingYards">Rushing Yards</option>
@@ -57,34 +31,18 @@
 
         <input type="float" name="quantifier">
 
+
         <select id="season" name="season">
-          <option value="2019">2019</option>
-          <option value="2018">2018</option>
           <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
         </select>
+        <button type="button" onclick="addStatToQuery()">+</button>`;
 
-        <button type="button" onclick="addStatToQuery()">+</button>
-
-      </div>
-
-
-      </div>
-
-      <!-- player info selector -->
-
-      <h2>Position</h2>
-      <div class="positions_wrapper">
-        <input type="checkbox" id="rb_checkbox" name="rb" value=true>
-        <label for="rb_checkbox">RB</label>
-        <input type="checkbox" id="wr_checkbox" name="wr" value=true>
-        <label for="wr_checkbox">WR</label>
-        <input type="checkbox" id="qb_checkbox" name="qb" value=true>
-        <label for="qb_checkbox">QB</label>
-      </div>
-      <br>
-      <button id="search_submit" type="submit">Search</button>
-    </form>
-  </div>
-</body>
-
-</html>
+function addStatToQuery() {
+  let statsWrapper = document.getElementById("stat_chooser_wrapper");
+  let newStatRow = document.createElement("div");
+  newStatRow.className = "search_wrapper";
+  newStatRow.innerHTML = statRowHtml;
+  statsWrapper.appendChild(newStatRow);
+}
