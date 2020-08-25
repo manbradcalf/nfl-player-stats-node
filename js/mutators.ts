@@ -52,13 +52,15 @@ function queryMapper(req) {
         whereClause += "and ";
       } else {
         // on the last condition, dont append trailing comma to return clause
-        returnClause += `r${i}, s${i}`
+        returnClause += `r${i}, s${i}`;
       }
     }
-    return matchClause + whereClause + returnClause;
   } else {
-    console.log("Haven't impelmented single line query rn\n\n");
+    matchClause += `match (p)-[r]-(s:NFLStatisticalSeason{name:${query.season}}) `;
+    whereClause += `r.${query.statistics} ${query.operator} ${query.quantifier} `;
+    returnClause += `r, s`;
   }
+  return matchClause + whereClause + returnClause;
 }
 
 export { queryMapper, mapResultsForTable };
