@@ -1,5 +1,4 @@
 node_modules
-dist
+util/playbyplays
 dist
 dist/js
-dist

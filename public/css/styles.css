@@ -5,15 +5,23 @@ body {
 .results {
   text-align: left;
   display: inline-block;
+  width: 100%;
 }
 
 .results button {
   margin: 0.5vw;
 }
 
+
 table {
   width: fit-content;
   overflow-x: auto;
+}
+
+td:first-child {
+  position: sticky;
+  left: 0;  
+  background-color: #ddd;
 }
 
 td,

@@ -1,0 +1,37 @@
+match (n:Player)-[r:rushing]->(s:NFLStatisticalSeason)
+match (n)-[rec:receiving]->(s:NFLStatisticalSeason)
+
+where n.position = "RB" and r.rushingYards > 1 and r. yardsPerRushAttempt > 1 and r.rushingAttempts > 100
+return n, r.rushingAttempts, rec.receptions, r.rushingYards + rec.receivingYards as totalyards
+r.rushingTouchdowns + rec.receivingTouchdowns as totalTDs
+order by r.yardsPerRushAttempt desc
+
+
+---
+
+match (n:Player)-[r:rushing]->(s:NFLStatisticalSeason)
+match (n)-[rec:receiving]->(s)
+match (n)-[sco:scoring]->(s)
+
+where n.position = "RB" and r.rushingYards > 1 and r. yardsPerRushAttempt > 1 and r.rushingAttempts > 50 and rec.receptions > 25
+return n.name, r.rushingAttempts, r.yardsPerRushAttempt, rec.receptions, rec.yardsPerReception, r.rushingYards + rec.receivingYards as totalyards, sco.totalTouchdowns, r.rushingAttempts + rec.receptions as totalPlays
+
+order by totalPlays desc
+
+---
+
+match (n:Player)-[r:rushing]->(s:NFLStatisticalSeason)
+match (n)-[rec:receiving]->(s)
+match (n)-[sco:scoring]->(s)
+
+where n.position = "RB" and r.rushingYards > 1 and r. yardsPerRushAttempt > 1 and r.rushingAttempts > 50 and rec.receptions > 25
+return n.name as Player, 
+r.rushingAttempts as rushes, 
+r.yardsPerRushAttempt as ydsPerRush, 
+rec.receptions as receptions, 
+rec.yardsPerReception as yardsPerReception, r.rushingYards + rec.receivingYards as totalyards, 
+sco.totalTouchdowns as TDs, 
+r.rushingAttempts + rec.receptions as totalPlays,
+toFloat(sco.totalTouchdowns) / toFloat(r.rushingAttempts + rec.receptions) * 1.0 as TDPercent
+
+order by TDPercent desc
