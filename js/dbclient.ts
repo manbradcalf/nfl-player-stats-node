@@ -4,7 +4,7 @@ const driver = n4j.driver;
 const auth = n4j.auth;
 const dbDriver = driver(
   "neo4j://localhost:7687",
-  auth.basic("ffadmin", "qwerty12!")
+  auth.basic("ff2020admin", "qwerty12!")
 );
 
 async function playerStatsByYearAndType(playerName, categoryName, year) {
@@ -22,16 +22,11 @@ async function generateSeasons() {
          create (s18:NFLStatisticalSeason{name:2018})
          create (s19:NFLStatisticalSeason{name:2019})`
   );
-  queryDB(`create (s19:NFLStatisticalSeason{name:2019})`);
 }
 
 async function queryDB(query) {
   try {
     const session = await dbDriver.session();
-
-    if (query.startsWith("create")) {
-      console.log(`Running create query\n${query}\non session\n${session}`);
-    }
 
     const result = await session.run(query);
 
@@ -46,7 +41,4 @@ async function queryDB(query) {
   }
 }
 
-module.exports.queryDB = queryDB;
-module.exports.generateSeasons = generateSeasons;
-module.exports.playerStatsByYearAndType = playerStatsByYearAndType;
-
+export { queryDB, generateSeasons, playerStatsByYearAndType };

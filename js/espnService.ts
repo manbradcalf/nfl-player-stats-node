@@ -1,9 +1,9 @@
 const pkg = require("espn-fantasy-football-api/node-dev.js");
+import { queryDB, generateSeasons, playerStatsByYearAndType} from "./dbclient"
 const espnAPI = new pkg.Client({ leagueId: 1077416 });
 const espnStats = "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes"
 const util = require('util');
 const axios = require("axios");
-const { queryDB, playerStatsByYearAndType, generateSeasons } = require("./dbclient.js");
 
 async function writePlayerToDB(playerSummary, response) {
   // check for existing player node. if not existing, create one

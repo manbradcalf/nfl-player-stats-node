@@ -1,2 +1,4 @@
 node_modules
 util/playbyplays
+dist
+dist/js

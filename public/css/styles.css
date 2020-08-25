@@ -1,17 +1,21 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  padding: 1rem;
 }
+
 .results {
   text-align: left;
   display: inline-block;
   width: 100%;
 }
 
-.results button {margin: .5rem;}
+.results button {
+  margin: 0.5vw;
+}
 
-.table-wrapper {
-  overflow-x:auto;
+
+table {
+  width: fit-content;
+  overflow-x: auto;
 }
 
 td:first-child {
@@ -28,46 +32,74 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2
+  background-color: #f2f2f2;
 }
 
 .table-header {
-  border:2px solid #000000
+  border: 2px solid #000000;
 }
 
 .header {
-position: absolute;
-bottom:0;
+  background-color: aliceblue;
+  display: flex;
+  margin-bottom: 2vw;
+  justify-content: space-between;
+  border-bottom: solid 0.25vw #000000;
+  align-items: flex-end;
 }
 
-.header button {
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: white;
-  color: black;
+.header p {
+  margin-bottom: 0px;
+  justify-self: flex-end;
   display: inline-block;
-  border-radius: 0.25rem;
+  font-size: 4vw;
+  padding-right: 2vw;
 }
 
-.header button:hover {
+.headerButtons {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  margin-bottom: 0.5vw;
+  align-items: baseline;
+  justify-content: baseline;
+}
+
+button,
+input[type="submit"] {
+  background-color: white;
+  border-width: 0.12vw;
+  color: black;
+  width: auto;
+  height: fit-content;
+  display: inline-block;
+  font-size: 1.5vw;
+  margin: 2px;
+}
+
+button:hover {
   background-color: black;
   color: white;
-  border-radius: 0.25rem;
+  border-radius: 0.25vw;
 }
 
-#search_submit{
+input[type="checkbox"] {
+  margin: 0.25vw;
+  display: inline-block;
+}
+
+#search_submit {
   display: inline;
 }
 
 #results-header {
   display: inline-block;
   position: relative;
-  width: 20rem;
-  height: fit-content;
-  margin-bottom: 0px;
+  width: 100vw;
 }
 #search_input {
-  margin: 0px; 
-  height: 387px; 
+  margin: 0px;
+  height: 387px;
   width: 456px;
 }
 
@@ -77,14 +109,10 @@ bottom:0;
   top: 0;
   display: inline-block;
   background: #ffffff;
-  width: 3.5rem;
+  width: 3.5vw;
 }
 
-#piechart-svg {
-  width: 2.5rem;
+#factory-svg #piechart-svg {
+  width: 2.5vw;
   height: auto;
-}
-
-#results-header-txt {
-  margin-bottom: 0px;
 }
