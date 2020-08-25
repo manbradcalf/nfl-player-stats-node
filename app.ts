@@ -31,6 +31,7 @@ app.get("/results", async (req, res, next) => {
       results: rows,
     });
   } catch (err) {
+    res.send(err.message);
     console.log(err)
   }
 });
