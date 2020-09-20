@@ -16,7 +16,26 @@
   {{>header}}
   <div class="search_wrapper">
     <form action="results">
-        <h2>Stats</h2>
+        <h2>I want to see</h2>
+      <div class="checkbox_wrapper">
+        <div>
+          <input type="checkbox" id="rushingYards_checkbox" name="rushYds" value=true>
+          <label for="rushingYards_checkbox">Rush Yards</label>
+        </div>
+        <div>
+          <input type="checkbox" id="receivingYards_checkbox" name="recYds" value=true>
+          <label for="receivingYards_checkbox">Rec Yards</label>
+        </div>
+        <div>
+          <input type="checkbox" id="rushingTouchdowns_checkbox" name="rushTDs" value=true>
+          <label for="rushingTouchdowns_checkbox">Rush Touchdowns</label>
+        </div>
+        <div>
+          <input type="checkbox" id="receivingTouchdowns_checkbox" name="recTDs" value=true>
+          <label for="receivingTouchdowns_checkbox">Rec Touchdowns</label>
+        </div>
+      </div>
+        <h2>For players who</h2>
       <div class="stat_chooser_wrapper" id="stat_chooser_wrapper">
         <!-- stat selector for ranges -->
         <label for "statistics"></label>
@@ -59,22 +78,25 @@
         </select>
 
         <button type="button" onclick="addStatToQuery()">+</button>
-
       </div>
-
-
       </div>
 
       <!-- player info selector -->
 
       <h2>Position</h2>
-      <div class="positions_wrapper">
-        <input type="checkbox" id="rb_checkbox" name="rb" value=true>
-        <label for="rb_checkbox">RB</label>
-        <input type="checkbox" id="wr_checkbox" name="wr" value=true>
-        <label for="wr_checkbox">WR</label>
-        <input type="checkbox" id="qb_checkbox" name="tqb" value=true>
-        <label for="qb_checkbox">QB</label>
+      <div class="checkbox_wrapper">
+        <div>
+          <input type="checkbox" id="rb_checkbox" name="rb" value=true>
+          <label for="rb_checkbox">RB</label>
+        </div>
+        <div>
+          <input type="checkbox" id="wr_checkbox" name="wr" value=true>
+          <label for="wr_checkbox">WR</label>
+        </div>
+        <div>
+            <input type="checkbox" id="qb_checkbox" name="tqb" value=true>
+          <label for="qb_checkbox">QB</label>
+        </div>
       </div>
       <br>
       <button id="search_submit" type="submit">Search</button>

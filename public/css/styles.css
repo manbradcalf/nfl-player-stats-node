@@ -2,6 +2,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.checkbox_wrapper {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: fit-content;
+}
 .results {
   text-align: left;
   display: inline-block;
@@ -12,7 +17,6 @@ body {
   margin: 0.5vw;
 }
 
-
 table {
   width: fit-content;
   overflow-x: auto;
@@ -20,7 +24,7 @@ table {
 
 td:first-child {
   position: sticky;
-  left: 0;  
+  left: 0;
   background-color: #ddd;
 }
 
@@ -29,6 +33,10 @@ th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 2px;
+}
+
+label {
+  padding-right: 10px;
 }
 
 tr:nth-child(even) {
@@ -42,7 +50,7 @@ tr:nth-child(even) {
 .header {
   background-color: aliceblue;
   display: flex;
-  margin-bottom: 2vw;
+  margin-bottom: 1vw;
   justify-content: space-between;
   border-bottom: solid 0.25vw #000000;
   align-items: flex-end;
@@ -83,11 +91,6 @@ button:hover {
   border-radius: 0.25vw;
 }
 
-input[type="checkbox"] {
-  margin: 0.25vw;
-  display: inline-block;
-}
-
 #search_submit {
   display: inline;
 }
@@ -116,3 +119,4 @@ input[type="checkbox"] {
   width: 2.5vw;
   height: auto;
 }
+
