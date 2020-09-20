@@ -17,19 +17,25 @@ body {
   margin: 0.5vw;
 }
 
-table {
-  width: fit-content;
-  overflow-x: auto;
-}
-
 td:first-child {
   position: sticky;
   left: 0;
   background-color: #ddd;
 }
 
-td,
-th {
+table {
+  position: relative;
+  border-collapse: collapse;
+}
+
+.table-wrapper {
+  max-width: 80vw;
+  max-height: 80vw;
+  overflow: scroll;
+  position: relative;
+}
+
+td {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 2px;
@@ -45,6 +51,10 @@ tr:nth-child(even) {
 
 .table-header {
   border: 2px solid #000000;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white;
 }
 
 .header {
