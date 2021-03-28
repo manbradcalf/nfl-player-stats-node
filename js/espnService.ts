@@ -20,13 +20,13 @@ async function writePlayerToDB(playerSummary, response) {
     // https://stackoverflow.com/questions/11233498/json-stringify-without-quotes-on-properties
     await queryDB(`create (p:Player${util.inspect(playerSummary)}) return p`);
   }
- 
+
   // ESPN statistical category. Indexed by stat type rather than year for some reason
   let espnResponseCategories = [
-  stats.filter(s => s.name === "rushing")[0], 
-  stats.filter(s => s.name === "scoring")[0],
-  stats.filter(s => s.name === "passing")[0],
-  stats.filter(s => s.name === "receiving")[0]
+    stats.filter((s) => s.name === "rushing")[0],
+    stats.filter((s) => s.name === "scoring")[0],
+    stats.filter((s) => s.name === "passing")[0],
+    stats.filter((s) => s.name === "receiving")[0],
   ];
 
   // Use for loop because forEach doesn't work well with async/await
@@ -110,40 +110,19 @@ async function writeStatsForPlayer(playerSummary) {
 }
 
 // Script does stuff now
-espnAPI.setCookies({
-  espnS2:
-    "AEBT8vOkxMc2bOJ0dsbtqzeRp8ZDOjSQ7D9qQw1G5FDe9D4HDS5aYSM%2FEMlwzjSnKzPtDnBrUz9vaoIpDL1tBJKAGXBrqO%2BtCIFMJuuCpbluc%2BSPybwSj%2Fxi5cEN9vlyoZhMjy64tBvqrv8Ng%2FyTeLBc5M6zuuORPgNqJr0IW0d7NDXaGvk3pkHdoDLRPrGpoDL3n0qLaxEqx8Xb35tYFh6iy3P0hrKIxXbybtMCXnWQgA9ymbBCRSye8%2BGxZ0kIGIHlRnM7dFdQNcH%2F0FvZBJLJvT61MDySg0sC9AucsjlQaQ%3D%3D",
-  SWID: "A0C037F3-FB5E-4932-AF85-0A9BDAB4C45B",
-});
-
 generateSeasons();
-let skillPlayers;
+let skillPlayers = require("../espnIds.json");
 
-espnAPI
-  .getFreeAgents({
-    seasonId: 2019,
-    scoringPeriodId: 2,
-  })
-  .then((players) => {
-    skillPlayers = players.filter((item) => {
-      // Defenses have negative ids and I think it breaks this
-      return item.player.id > 0;
-    });
+skillPlayers.forEach((item) => {
+  // All wideouts are listed by ESPN as RB/WR fome reason
+  if (item.player.defaultPosition == "RB/WR") {
+    item.player.defaultPosition = "WR";
+  }
 
-    skillPlayers.forEach((item) => {
-      // All wideouts are listed by ESPN as RB/WR fome reason
-      if (item.player.defaultPosition == "RB/WR") {
-        item.player.defaultPosition = "WR";
-      }
-
-      let playerSummary = {
-        espnid: item.player.id,
-        name: item.player.fullName,
-        position: item.player.defaultPosition,
-      };
-      writeStatsForPlayer(playerSummary);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  let playerSummary = {
+    espnid: item.player.id,
+    name: item.player.fullName,
+    position: item.player.defaultPosition,
+  };
+  writeStatsForPlayer(playerSummary);
+});

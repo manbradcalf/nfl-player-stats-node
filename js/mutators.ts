@@ -10,49 +10,58 @@ function mapResultsForTable(dbResults) {
     // for each stat category (ex: receiving)
     player.forEach((stat) => {
       // for each individual stat, populate a cell
-      Object.entries(stat.properties).forEach((p) => {
-        tableCells.push(p[1]);
-      });
+      if (stat.properties) {
+        Object.entries(stat.properties).forEach((p) => {
+          if (p[1]) {
+            tableCells.push(p[1]);
+          } else {
+            tableCells.push(p);
+          }
+        });
+      } else {
+        tableCells.push(stat);
+      }
     });
     rows.push(tableCells);
   });
 
-  //TODO: I think this is stupid
   let headers = [];
   records[0].forEach((stat) => {
     // for each individual stat, populate a cell
-    Object.entries(stat.properties).forEach((p) => {
-      headers.push(p[0]);
-    });
+    if (stat.properties) {
+      Object.entries(stat.properties).forEach((p) => {
+        // this will make "Mark Ingram III" the header, instead of "Name"
+        headers.push(p[0]);
+      });
+    } else {
+      headers.push(stat);
+    }
   });
 
   return { headers, rows };
 }
 
 function queryMapper(req) {
-  //TODO: Use this format for queries
-  //match (p)-[r1]->(s)
-  //match (p)-[r2]->(s)
-  //where s.name = 2019 and r1.rushingYards > 500 and r2.receivingYards > 1000 return p, r1, r2
   let query = req.query;
   let matchClause = "";
   let whereClause = "where ";
-  let returnClause = "return p, ";
+  let returnClause = "return p.name as Name, p.position as Position, ";
   if (query.statistics instanceof Array) {
-    //TODO: If theres an operator, we need a match clause...
     // this is a hacky way to figure out how many match clauses to build
     let lines = query.operator.length;
-    // match clause
+
     for (let i = 0; i < lines; i++) {
       matchClause += `match (p)-[r${i}]->(s${i}:NFLStatisticalSeason{name:${query.season[i]}}) `;
+
       whereClause += `r${i}.${query.statistics[i]} ${query.operator[i]} ${query.quantifier[i]} `;
+
       // add 'and' for every condition but the last
       if (i < lines - 1) {
-        returnClause += `r${i}, s${i}, `;
+        returnClause += `s${i}.name, r${i}, `;
         whereClause += "and ";
       } else {
         // on the last condition, dont append trailing comma to return clause
-        returnClause += `r${i}, s${i}`;
+        returnClause += `s${i}.name, r${i}`;
       }
     }
   } else {
@@ -60,6 +69,12 @@ function queryMapper(req) {
     whereClause += `r.${query.statistics} ${query.operator} ${query.quantifier} `;
     returnClause += `r, s`;
   }
+  // finally, we add the player position
+  // which is a checkbox representing all match clauses
+  if (query.position) {
+    whereClause += `and p.position in ${JSON.stringify(query.position)} `;
+  }
+
   return matchClause + whereClause + returnClause;
 }
 

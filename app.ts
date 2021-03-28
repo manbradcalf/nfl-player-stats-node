@@ -23,6 +23,7 @@ app.get("/results", async (req, res, next) => {
     let query = queryMapper(req);
     let dbResponse = await queryDB(query);
     let { headers, rows } = mapResultsForTable(dbResponse);
+
     // get results from db for query
     // render view
     res.render("results", {
@@ -32,7 +33,7 @@ app.get("/results", async (req, res, next) => {
     });
   } catch (err) {
     res.send(err.message);
-    console.log(err)
+    console.log(err);
   }
 });
 app.listen(port, () => {
