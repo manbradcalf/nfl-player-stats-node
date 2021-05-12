@@ -1,8 +1,7 @@
 const pkg = require("espn-fantasy-football-api/node-dev.js");
 import { queryDB, generateSeasons, playerStatsByYearAndType } from "./dbclient";
-const espnAPI = new pkg.Client({ leagueId: 1077416 });
-const espnPlayerEndpoint =
-  "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
+const espnStats =
+  "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes";
 const util = require("util");
 const axios = require("axios");
 
@@ -112,7 +111,7 @@ async function writePlayerInfoToDB(espnPlayerId: string) {
 
 // Script does stuff now
 generateSeasons();
-let skillPlayers = require("../espnIds.json");
+let skillPlayers = require("../../espnIds.json");
 
 skillPlayers.forEach((item) => {
   writePlayerInfoToDB(item);
