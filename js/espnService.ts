@@ -1,8 +1,8 @@
 const pkg = require("espn-fantasy-football-api/node-dev.js");
 import { queryDB, generateSeasons, playerStatsByYearAndType } from "./dbclient";
 const espnAPI = new pkg.Client({ leagueId: 1077416 });
-const espnStats =
-  "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes";
+const espnPlayerEndpoint =
+  "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
 const util = require("util");
 const axios = require("axios");
 
@@ -87,25 +87,26 @@ async function generateStatsForCategory(category, playerSummary) {
   }
 }
 
-async function writeStatsForPlayer(playerSummary) {
-  let url =
-    espnStats +
-    "/" +
-    playerSummary.espnid.toString() +
-    "/stats?region=us&lang=en&contentorigin=espn";
+async function writePlayerInfoToDB(espnPlayerId: string) {
+  const url = `${espnPlayerEndpoint}${espnPlayerId}`;
+  console.log(`url is ${url}\n`);
   axios
     .get(url)
     .then((response) => {
-      if (response.data.categories != undefined) {
-        writePlayerToDB(playerSummary, response);
+      if (response.data != undefined) {
+        console.log(`response looks like ${Object.keys(response.data)}`);
+        let playerSummary = {
+          espnid: espnPlayerId,
+          name: response.data.athlete.displayName,
+          position: response.data.athlete.position.abbreviation,
+        };
+        console.log(`playerSummary is ${JSON.stringify(playerSummary)}`);
+        //TODO: Commenting out because prototyping
+        // writePlayerToDB(playerSummary, response);
       }
     })
     .catch((error) => {
-      console.log(
-        "Unable to get " +
-          playerSummary.fullName +
-          ` stats because...\n${error}`
-      );
+      console.log(`Unable to get player info because...\n${error}`);
     });
 }
 
@@ -114,15 +115,5 @@ generateSeasons();
 let skillPlayers = require("../espnIds.json");
 
 skillPlayers.forEach((item) => {
-  // All wideouts are listed by ESPN as RB/WR fome reason
-  if (item.player.defaultPosition == "RB/WR") {
-    item.player.defaultPosition = "WR";
-  }
-
-  let playerSummary = {
-    espnid: item.player.id,
-    name: item.player.fullName,
-    position: item.player.defaultPosition,
-  };
-  writeStatsForPlayer(playerSummary);
+  writePlayerInfoToDB(item);
 });
