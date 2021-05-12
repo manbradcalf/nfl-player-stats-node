@@ -2,11 +2,15 @@
 const n4j = require("neo4j-driver");
 const driver = n4j.driver;
 const auth = n4j.auth;
-const dbDriver = driver(
-  "neo4j://localhost:7687",
-  auth.basic("ff2020admin", "qwerty12!")
-);
+// const dbDriver = driver(
+//   "neo4j://localhost:7687",
+//   auth.basic("ff2020admin", "qwerty12!")
+// );
 
+const dbDriver = driver(
+  "neo4j://localhost:7687/players",
+  auth.basic(process.env.dbuser, process.env.dbpassword)
+);
 async function playerStatsByYearAndType(playerName, categoryName, year) {
   return queryDB(
     `match (p:Player{name: \"${playerName}\"})-[r:${categoryName}]->(s:NFLStatisticalSeason{name:${year}}) return r`
