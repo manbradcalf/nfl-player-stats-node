@@ -87,7 +87,7 @@ async function generateStatsForCategory(category, playerSummary) {
 }
 
 async function writePlayerInfoToDB(espnPlayerId: string) {
-  const url = `${espnPlayerEndpoint}${espnPlayerId}`;
+  const url = `${espnStats}${espnPlayerId}`;
   console.log(`url is ${url}\n`);
   axios
     .get(url)

@@ -71,8 +71,12 @@ function queryMapper(req) {
   }
   // finally, we add the player position
   // which is a checkbox representing all match clauses
-  if (query.position) {
-    whereClause += `and p.position in ${JSON.stringify(query.position)} `;
+  if (Array.isArray(query.position)) {
+    // if multiple positions are selected, query "in"
+    whereClause += `and p.position in ${query.position} `;
+  } else if (query.position) {
+    // if only one, query "="
+    whereClause += `and p.position = "${query.position}" `;
   }
 
   return matchClause + whereClause + returnClause;
