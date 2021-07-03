@@ -1,41 +1,34 @@
 const pkg = require("espn-fantasy-football-api/node-dev.js");
 import { queryDB, generateSeasons, playerStatsByYearAndType } from "./dbclient";
-const espnStats =
-  "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes";
+const espnAthlete =
+  "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
+const espnTeam =
+  "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/statistics/byteam";
 const util = require("util");
 const axios = require("axios");
 
-async function writePlayerToDB(playerSummary, response) {
+async function writePlayerStatsToDB(playerSummary, espnPlayerId) {
   // check for existing player node. if not existing, create one
   let playerNode = await queryDB(
     `match (p:Player{name:\"${playerSummary.name}\"}) return p`
   );
 
-  let stats = response.data.categories;
+  await axios
+    .get(`${espnAthlete + espnPlayerId}/stats`)
+    .then(async (response) => {
+      if (playerNode.records.length == 0) {
+        await queryDB(
+          `create (p:Player${util.inspect(playerSummary)}) return p`
+        );
+      }
 
-  // if we have no player, make one
-  if (playerNode.records.length == 0) {
-    // Using util inspect here to trim quotes from json keys
-    // https://stackoverflow.com/questions/11233498/json-stringify-without-quotes-on-properties
-    await queryDB(`create (p:Player${util.inspect(playerSummary)}) return p`);
-  }
-
-  // ESPN statistical category. Indexed by stat type rather than year for some reason
-  let espnResponseCategories = [
-    stats.filter((s) => s.name === "rushing")[0],
-    stats.filter((s) => s.name === "scoring")[0],
-    stats.filter((s) => s.name === "passing")[0],
-    stats.filter((s) => s.name === "receiving")[0],
-  ];
-
-  // Use for loop because forEach doesn't work well with async/await
-  for (let index = 0; index < espnResponseCategories.length; index++) {
-    let category = espnResponseCategories[index];
-    // TODO: what is null safety in javascript
-    if (category) {
-      generateStatsForCategory(category, playerSummary);
-    }
-  }
+      for (const statisticalCategory of response.data.categories) {
+        generateStatsForCategory(statisticalCategory, playerSummary);
+      }
+    })
+    .catch((error) => {
+      console.log(`Unable to get player info because...\n${error}`);
+    });
 }
 
 async function generateStatsForCategory(category, playerSummary) {
@@ -87,21 +80,17 @@ async function generateStatsForCategory(category, playerSummary) {
 }
 
 async function writePlayerInfoToDB(espnPlayerId: string) {
-  const url = `${espnStats}${espnPlayerId}`;
-  console.log(`url is ${url}\n`);
+  const url = `${espnAthlete}${espnPlayerId}`;
   axios
     .get(url)
     .then((response) => {
       if (response.data != undefined) {
-        console.log(`response looks like ${Object.keys(response.data)}`);
         let playerSummary = {
           espnid: espnPlayerId,
           name: response.data.athlete.displayName,
           position: response.data.athlete.position.abbreviation,
         };
-        console.log(`playerSummary is ${JSON.stringify(playerSummary)}`);
-        //TODO: Commenting out because prototyping
-        // writePlayerToDB(playerSummary, response);
+        writePlayerStatsToDB(playerSummary, espnPlayerId);
       }
     })
     .catch((error) => {
@@ -109,10 +98,21 @@ async function writePlayerInfoToDB(espnPlayerId: string) {
     });
 }
 
-// Script does stuff now
-generateSeasons();
-let skillPlayers = require("../../espnIds.json");
+async function getTeamsStats() {
+  const url = `${espnTeam}`;
+  axios.get(url).then((response) => {
+    let teamStats = response.data.teams.map((t, c) => {
+      return { team: t.team.name, stats: t.categories };
+    });
+    console.log(`response\n${JSON.stringify(teamStats)}`);
+  });
+}
 
-skillPlayers.forEach((item) => {
-  writePlayerInfoToDB(item);
-});
+// Script does stuff now
+// generateSeasons();
+// let skillPlayers = require("../../espnIds.json");
+
+// skillPlayers.forEach((item) => {
+//   writePlayerInfoToDB(item);
+// });
+getTeamsStats();

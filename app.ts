@@ -1,6 +1,6 @@
 import e from "express";
-import { queryDB } from "./js/dbclient";
-import { mapResultsForTable, queryMapper } from "./js/mutators";
+import { queryDB } from "./scripts/dbclient";
+import { mapResultsForTable, queryMapper } from "./scripts/mutators";
 import "http-errors";
 const app = e();
 const port = 3000;
