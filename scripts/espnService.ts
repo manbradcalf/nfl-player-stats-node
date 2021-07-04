@@ -124,21 +124,38 @@ async function getStatNamesForCateogry(statsCategory) {
     console.log(`stat names for ${statsCategory} are ${statNames}`);
   });
 }
-async function getTeamStatsForCategory(statsCategory, teamName) {
+async function getTeamStatsForCategory(statsCategory) {
   // TODO remove this fetch of data in the function and pass data as param
-  await axios.get(espnTeamStats).then((response) => {
-    let teamStats = response.data.teams
-      .filter((t) => t.team.name === teamName)[0]
-      .categories.filter((c) => c.name === statsCategory)[0];
 
-    console.log(
-      `team stats for ${statsCategory} are ${JSON.stringify(teamStats)}`
-    );
+  await axios.get(espnTeamStats).then((response) => {
+    response.data.teams.forEach((team) => {
+      // console.log(`team is ${JSON.stringify(team)}`)
+      let teamStats = {};
+      let ownStats = team.categories.filter((c) => c.name === statsCategory)[0];
+      let opponentStats = team.categories.filter(
+        (c) => c.name === statsCategory
+      )[1];
+
+      let formattedStats = {
+        own: { ranks: ownStats.ranks, values: ownStats.values },
+        opponent: {
+          ranks: opponentStats.ranks,
+          values: opponentStats.values,
+        },
+      };
+
+      teamStats[statsCategory] = formattedStats;
+      console.log(
+        `${statsCategory} stats for ${JSON.stringify(
+          team.team.name
+        )} are ${JSON.stringify(teamStats)}\n`
+      );
+    });
   });
 }
 
-getStatNamesForCateogry("rushing");
-getTeamStatsForCategory("rushing", "Vikings");
+// getStatNamesForCateogry("rushing");
+getTeamStatsForCategory("rushing");
 // Script does stuff now
 // generateSeasons();
 // let skillPlayers = require("../../espnIds.json");
