@@ -2,7 +2,7 @@ const pkg = require("espn-fantasy-football-api/node-dev.js");
 import { queryDB, generateSeasons, playerStatsByYearAndType } from "./dbclient";
 const espnAthlete =
   "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
-const espnTeam =
+const espnTeamStats =
   "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/statistics/byteam";
 const util = require("util");
 const axios = require("axios");
@@ -23,7 +23,7 @@ async function writePlayerStatsToDB(playerSummary, espnPlayerId) {
       }
 
       for (const statisticalCategory of response.data.categories) {
-        generateStatsForCategory(statisticalCategory, playerSummary);
+        generatePlayerStatsForCategory(statisticalCategory, playerSummary);
       }
     })
     .catch((error) => {
@@ -31,7 +31,7 @@ async function writePlayerStatsToDB(playerSummary, espnPlayerId) {
     });
 }
 
-async function generateStatsForCategory(category, playerSummary) {
+async function generatePlayerStatsForCategory(category, playerSummary) {
   let statKeys = category.names;
   let seasons = category.statistics;
   let categoryName = category.name;
@@ -99,15 +99,46 @@ async function writePlayerInfoToDB(espnPlayerId: string) {
 }
 
 async function getTeamsStats() {
-  const url = `${espnTeam}`;
+  const url = `${espnTeamStats}`;
   axios.get(url).then((response) => {
-    let teamStats = response.data.teams.map((t, c) => {
-      return { team: t.team.name, stats: t.categories };
+    let teamStats = response.data.map((x) => {
+      return {
+        team: x.teams.team.name,
+        team_stats: x.teams.categories,
+        stats: x.categories.map((x) => {
+          return { category: x.name, stats: x.names };
+        }),
+      };
     });
     console.log(`response\n${JSON.stringify(teamStats)}`);
   });
 }
 
+async function getStatNamesForCateogry(statsCategory) {
+  // TODO remove this fetch of data in the function and pass data as param
+  await axios.get(espnTeamStats).then((response) => {
+    let statNames = response.data.categories.filter(
+      (c) => c.name === statsCategory
+    )[0].names;
+
+    console.log(`stat names for ${statsCategory} are ${statNames}`);
+  });
+}
+async function getTeamStatsForCategory(statsCategory, teamName) {
+  // TODO remove this fetch of data in the function and pass data as param
+  await axios.get(espnTeamStats).then((response) => {
+    let teamStats = response.data.teams
+      .filter((t) => t.team.name === teamName)[0]
+      .categories.filter((c) => c.name === statsCategory)[0];
+
+    console.log(
+      `team stats for ${statsCategory} are ${JSON.stringify(teamStats)}`
+    );
+  });
+}
+
+getStatNamesForCateogry("rushing");
+getTeamStatsForCategory("rushing", "Vikings");
 // Script does stuff now
 // generateSeasons();
 // let skillPlayers = require("../../espnIds.json");
@@ -115,4 +146,3 @@ async function getTeamsStats() {
 // skillPlayers.forEach((item) => {
 //   writePlayerInfoToDB(item);
 // });
-getTeamsStats();
