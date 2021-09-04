@@ -1,10 +1,22 @@
 import { QueryResult } from "neo4j-driver/types/result";
 
-function mapResultsForTable(dbResults) {
-  let records = dbResults.records;
-  // format results for consumption by view
+function mapHeaders(row) {
+  let headers = [];
+
+  row.keys.forEach((key) => {
+    let keysIndex = row._fieldLookup[key];
+    if (row._fields[keysIndex].properties) {
+      // we have to pull keys from relationship properties
+      headers.push(...Object.keys(row._fields[keysIndex].properties));
+    } else {
+      headers.push(key);
+    }
+  });
+  return headers;
+}
+
+function mapRows(records) {
   let rows: Array<any> = [];
-  // for each row
   records.forEach((player) => {
     let tableCells: Array<any> = [];
     // for each stat category (ex: receiving)
@@ -25,31 +37,41 @@ function mapResultsForTable(dbResults) {
     rows.push(tableCells);
   });
 
-  let headers = [];
-  records[0].forEach((stat) => {
-    // for each individual stat, populate a cell
-    if (stat.properties) {
-      Object.entries(stat.properties).forEach((p) => {
-        // this will make "Mark Ingram III" the header, instead of "Name"
-        headers.push(p[0]);
-      });
-    } else {
-      headers.push(stat);
-    }
-  });
+  return rows;
+}
 
+function mapResultsForTable(dbResults) {
+  let records = dbResults.records;
+  let rows = mapRows(records);
+  let headers = mapHeaders(records[0]);
   return { headers, rows };
 }
 
 function queryMapper(req) {
   let query = req.query;
+  let queryEntries = Object.entries(query);
+  let statsToReturn = queryEntries
+    .filter((q) => q[1] == "true")
+    .map((q) => q[0]);
+  let returnClauseWithNamedStats = "";
+
+  //TODO how to handle diff relationship types via request queries
+  statsToReturn.forEach((s) => {
+    if (s != statsToReturn[statsToReturn.length - 1]) {
+      returnClauseWithNamedStats += `r.${s} as ${s}, `;
+    } else {
+      returnClauseWithNamedStats += `r.${s} as ${s} `;
+    }
+  });
   let matchClause = "";
   let whereClause = "where ";
-  let returnClause = "return p.name as Name, p.position as Position, ";
+  let returnClause = `return p.name as Name, p.position as Position, ${returnClauseWithNamedStats}`;
+
   if (query.statistics instanceof Array) {
     // this is a hacky way to figure out how many match clauses to build
     let lines = query.operator.length;
 
+    // For each stat constraint. EX: rushers over 1000 yards
     for (let i = 0; i < lines; i++) {
       matchClause += `match (p)-[r${i}]->(s${i}:NFLStatisticalSeason{name:${query.season[i]}}) `;
 
@@ -57,17 +79,16 @@ function queryMapper(req) {
 
       // add 'and' for every condition but the last
       if (i < lines - 1) {
-        returnClause += `s${i}.name, r${i}, `;
+        returnClause += `s${i}, r${i}, `;
         whereClause += "and ";
       } else {
         // on the last condition, dont append trailing comma to return clause
-        returnClause += `s${i}.name, r${i}`;
+        returnClause += `s${i}, r${i}`;
       }
     }
   } else {
     matchClause += `match (p)-[r]-(s:NFLStatisticalSeason{name:${query.season}}) `;
     whereClause += `r.${query.statistics} ${query.operator} ${query.quantifier} `;
-    returnClause += `r, s`;
   }
   // finally, we add the player position
   // which is a checkbox representing all match clauses
@@ -78,8 +99,8 @@ function queryMapper(req) {
     // if only one, query "="
     whereClause += `and p.position = "${query.position}" `;
   }
+  const dbQuery = matchClause + whereClause + returnClause;
 
-  return matchClause + whereClause + returnClause;
+  return dbQuery;
 }
-
 export { queryMapper, mapResultsForTable };
