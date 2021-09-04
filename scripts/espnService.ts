@@ -47,7 +47,7 @@ async function generatePlayerStatsForCategory(category, playerSummary) {
       season.season.year
     );
 
-    // If they don't exist, make the stats
+    // If they don't exist in the DB, make the stats and insert
     if (seasonStatsForThisCategory.records.length == 0) {
       //TODO; Broken
       let dbStatsForSeason = await queryDB(
