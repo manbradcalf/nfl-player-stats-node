@@ -5,8 +5,8 @@
   "main": "dist/app.js",
   "scripts": {
     "test": "test",
-    "debug": "tsc && node --inspect dist/app.js",
-    "start": "tsc && node dist/app.js"
+    "debug": "tsc && nodemon --inspect dist/app.js",
+    "start": "tsc && nodemon dist/app.js"
   },
   "repository": {
     "type": "git",

@@ -2,3 +2,6 @@ node_modules
 util/playbyplays
 dist
 dist/js
+teamstats.json
+nfl2020teamstats.json
+vim-node-config.json
