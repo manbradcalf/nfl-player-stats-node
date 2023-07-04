@@ -1,9 +1,11 @@
-const pkg = require("espn-fantasy-football-api/node-dev.js");
 import { queryDB, generateSeasons, playerStatsByYearAndType } from "./dbclient";
+
 const espnAthlete =
   "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/";
 const espnTeamStats =
   "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/statistics/byteam";
+
+
 const util = require("util");
 const axios = require("axios");
 
@@ -79,7 +81,7 @@ async function generatePlayerStatsForCategory(category, playerSummary) {
   }
 }
 
-async function writePlayerInfoToDB(espnPlayerId: string) {
+export async function writePlayerInfoToDB(espnPlayerId: string) {
   const url = `${espnAthlete}${espnPlayerId}`;
   axios
     .get(url)
@@ -153,13 +155,3 @@ async function getTeamStatsForCategory(statsCategory) {
     });
   });
 }
-
-// getStatNamesForCateogry("rushing");
-getTeamStatsForCategory("rushing");
-// Script does stuff now
-// generateSeasons();
-// let skillPlayers = require("../../espnIds.json");
-
-// skillPlayers.forEach((item) => {
-//   writePlayerInfoToDB(item);
-// });

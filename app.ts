@@ -1,10 +1,24 @@
-import e from "express";
-import { queryDB } from "./scripts/dbclient";
-import { mapResultsForTable, queryMapper } from "./scripts/mutators";
 import "http-errors";
+import e from "express";
+import { generateSeasons, queryDB } from "./scripts/dbclient";
+import { mapResultsForTable, queryMapper } from "./scripts/mutators";
+import { writePlayerInfoToDB } from "./scripts/espnService";
+import { skillPlayers } from "./scripts/espnIds";
+
 const app = e();
 const port = 3000;
 let path = require("path");
+
+/**
+ * THIS IS TEMPORARY!
+ */
+generateSeasons();
+skillPlayers.forEach((item) => {
+  writePlayerInfoToDB(item.toString());
+});
+/**
+ * THIS IS TEMPORARY!
+ */
 
 // Set our static public folder for static assets such as css and images
 app.use(e.static(path.join(__dirname, "../public")));
@@ -36,6 +50,7 @@ app.get("/results", async (req, res, next) => {
     console.log(err);
   }
 });
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
