@@ -4,9 +4,10 @@ const driver = n4j.driver;
 const auth = n4j.auth;
 
 const dbDriver = driver(
-  "neo4j://localhost:7687/players",
+  process.env.dburl,
   auth.basic(process.env.dbuser, process.env.dbpassword)
 );
+
 async function playerStatsByYearAndType(playerName, categoryName, year) {
   return queryDB(
     `match (p:Player{name: \"${playerName}\"})-[r:${categoryName}]->(s:NFLStatisticalSeason{name:${year}}) return r`

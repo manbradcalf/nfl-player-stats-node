@@ -6,16 +6,16 @@ import { writePlayerInfoToDB } from "./scripts/espnService";
 import { skillPlayers } from "./scripts/espnIds";
 
 const app = e();
-const port = 3000;
+const port = process.env.port;
 let path = require("path");
 
 /**
  * THIS IS TEMPORARY!
  */
-generateSeasons();
-skillPlayers.forEach((item) => {
-  writePlayerInfoToDB(item.toString());
-});
+// generateSeasons();
+// skillPlayers.forEach((item) => {
+//   writePlayerInfoToDB(item.toString());
+// });
 /**
  * THIS IS TEMPORARY!
  */
