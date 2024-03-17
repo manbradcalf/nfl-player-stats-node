@@ -13,7 +13,7 @@ interface PlayerSummary {
   position: string;
 }
 
-async function buildPlayer(playerSummary: PlayerSummary, espnPlayerId) {
+async function buildPlayer(playerSummary: PlayerSummary, espnPlayerId: string) {
   await axios
     .get(`${espnAthlete + espnPlayerId}/stats`)
     .then(async (response) => {

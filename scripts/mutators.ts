@@ -1,5 +1,3 @@
-import { QueryResult } from "neo4j-driver/types/result";
-
 function mapHeaders(row) {
   let headers = [];
 

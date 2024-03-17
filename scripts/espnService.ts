@@ -1,3 +1,5 @@
+// todo: delete this and use a downloaded copy of data from nflfastr or
+// somethign
 import { queryDB, generateSeasons, playerStatsByYearAndType } from "./dbclient";
 
 const espnAthlete =
@@ -5,26 +7,21 @@ const espnAthlete =
 const espnTeamStats =
   "https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/statistics/byteam";
 
-
 const util = require("util");
 const axios = require("axios");
 
-async function writePlayerStatsToDB(playerSummary, espnPlayerId) {
-  // check for existing player node. if not existing, create one
-  let playerNode = await queryDB(
-    `match (p:Player{name:\"${playerSummary.name}\"}) return p`
-  );
+async function createPlayerLabel(playerSummary) {
+  await queryDB(`create (p:Player${util.inspect(playerSummary)}) return p`);
+}
 
+async function writePlayerStatsToDB(playerSummary) {
   await axios
-    .get(`${espnAthlete + espnPlayerId}/stats`)
+    .get(`${espnAthlete + playerSummary.espnid}/stats`)
     .then(async (response) => {
-      if (playerNode.records.length == 0) {
-        await queryDB(
-          `create (p:Player${util.inspect(playerSummary)}) return p`
-        );
-      }
-
       for (const statisticalCategory of response.data.categories) {
+        if (statisticalCategory.names.includes("fieldGoalsMade-fieldGoalAttempts")) {
+          return;
+        }
         generatePlayerStatsForCategory(statisticalCategory, playerSummary);
       }
     })
@@ -50,7 +47,7 @@ async function generatePlayerStatsForCategory(category, playerSummary) {
     );
 
     // If they don't exist in the DB, make the stats and insert
-    if (seasonStatsForThisCategory.records.length == 0) {
+    if (!seasonStatsForThisCategory.records) {
       //TODO; Broken
       let dbStatsForSeason = await queryDB(
         `MATCH (p:Player), (s:NFLStatisticalSeason) 
@@ -75,8 +72,6 @@ async function generatePlayerStatsForCategory(category, playerSummary) {
                MATCH (p)-[r:${categoryName}]->(s) 
               SET r.${statKeys[statIndex]} = ${stat.replace(",", "")}`
       );
-
-      console.log(`just added stats: ${addStatForYear.records}`);
     }
   }
 }
@@ -92,7 +87,8 @@ export async function writePlayerInfoToDB(espnPlayerId: string) {
           name: response.data.athlete.displayName,
           position: response.data.athlete.position.abbreviation,
         };
-        writePlayerStatsToDB(playerSummary, espnPlayerId);
+        createPlayerLabel(playerSummary);
+        writePlayerStatsToDB(playerSummary);
       }
     })
     .catch((error) => {

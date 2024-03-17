@@ -3,9 +3,13 @@ const n4j = require("neo4j-driver");
 const driver = n4j.driver;
 const auth = n4j.auth;
 
+// const dbDriver = driver(
+//   process.env.NEO4J_URI,
+//   auth.basic(process.env.NEO4J_USERNAME, process.env.NEO4J_PASSWORD)
+// );
 const dbDriver = driver(
-  process.env.dburl,
-  auth.basic(process.env.dbuser, process.env.dbpassword)
+  "localhost:7687",
+  auth.basic("node", "webbedfeet")
 );
 
 async function playerStatsByYearAndType(playerName, categoryName, year) {
@@ -26,16 +30,12 @@ async function generateSeasons() {
 }
 
 async function queryDB(query) {
+  console.log(query);
   try {
     const session = await dbDriver.session();
-
     const result = await session.run(query);
-
-    if (result.records.length != 0) {
-      console.log(`Returning this result for ${query}\n\n${result}`);
-    }
     await session.close();
-    console.log("closed session\n");
+    console.log(result);
     return result;
   } catch (error) {
     console.log(error);
