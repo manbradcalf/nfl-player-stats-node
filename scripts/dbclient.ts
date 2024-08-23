@@ -7,8 +7,9 @@ const auth = n4j.auth;
 //   process.env.NEO4J_URI,
 //   auth.basic(process.env.NEO4J_USERNAME, process.env.NEO4J_PASSWORD)
 // );
+
 const dbDriver = driver(
-  "localhost:7687",
+  "neo4j://localhost",
   auth.basic("node", "webbedfeet")
 );
 
